@@ -183,13 +183,6 @@ def generate_structured_reading(question, selected_cards, reading_type):
     )
 
     return "\n".join(reading_parts)
-ing_parts.append("✨ The cards have spoken. Trust your intuition as you move forward on your path.")
-        
-        return "\n".join(reading_parts)
-        
-    except Exception as e:
-        print(f"Error in generate_structured_reading: {str(e)}")
-        return "The cosmic energies are shifting... Please try your reading again. The cards are eager to share their wisdom with you."
 
 def generate_tarot_reading(question, selected_cards, reading_type):
     """

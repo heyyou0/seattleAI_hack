@@ -416,7 +416,7 @@ body {
     width: 100%;
     height: auto;
     border-radius: 8px;
-    border: 2px solid var(--golden-glow);
+    border: none; /* Remove golden border */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
