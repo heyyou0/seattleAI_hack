@@ -1,7 +1,16 @@
 import os, json, time, requests
 
+# Initialize OpenAI client
+try:
+    from openai import OpenAI
+    OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+    openai_client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
+except ImportError:
+    openai_client = None
+
 # API 토큰을 환경 변수에서 가져옵니다.
-HF_TOKEN = os.environ.get("HF_API_KEY") or os.environ.get("HF_TOKEN")
+HF_API_KEY = os.environ.get("HF_API_KEY") or os.environ.get("HF_TOKEN")
+HF_TOKEN = HF_API_KEY
 HF_MODEL = "HuggingFaceH4/zephyr-7b-beta"
 HF_URL = f"https://api-inference.huggingface.co/models/{HF_MODEL}"
 HF_HEADERS = {
@@ -11,7 +20,7 @@ HF_HEADERS = {
 
 
 def hf_generate(prompt, max_tries=6):
-    """呼叫 Hugging Face Inference API，處理 503 載入與常見回傳格式。"""
+    """Hugging Face Inference API를 호출하고, 일반적인 응답 형식을 처리합니다."""
     # 디버깅을 위해 토큰 상태를 출력합니다.
     if not HF_TOKEN:
         print("HF_TOKEN is not set. API call will fail.")
@@ -102,7 +111,11 @@ def hf_generate(prompt, max_tries=6):
 
 
 def generate_tarot_reading(question, selected_cards, reading_type):
-    # HF 토큰이 설정되어 있으면 API를 호출합니다.
+    """
+    타로 리딩을 생성합니다. 먼저 Hugging Face API를 시도하고, 실패 시
+    미리 정의된 구조화된 리딩을 사용합니다.
+    """
+    # HF_TOKEN이 설정되어 있다면 API를 호출합니다.
     if HF_TOKEN:
         cards_text = "\n".join(
             f"{c.get('name','Unknown')}: {c.get('description','')}" +
@@ -122,12 +135,15 @@ def generate_tarot_reading(question, selected_cards, reading_type):
             "You are a wise tarot reader. Write a mystical but concrete reading.\n"
             f"Question: {question}\n\nCards:\n{cards_text}\n\n{context}\n\n"
             "Return only the reading text (no JSON, no explanations).")
+
+        # API를 호출하고 응답을 받습니다.
         text = hf_generate(prompt)
+
         # API 호출이 성공하고 응답 길이가 충분하면 반환합니다.
         if text and len(text) > 50:
             return text
 
-    # 마지막 대체 로직
+    # HF API 호출이 실패하거나 토큰이 없는 경우 대체 로직을 실행합니다.
     return generate_structured_reading(question, selected_cards, reading_type)
 
 
@@ -225,23 +241,12 @@ def generate_tarot_reading(question, selected_cards, reading_type):
         # Try Hugging Face as backup
         if HF_API_KEY:
             prompt = f"You are a wise tarot reader. For the question '{question}', interpret these cards:\n{cards_text}\n\n{context}\n\nProvide an insightful, mystical reading:"
-            payload = {
-                "inputs": prompt,
-                "parameters": {
-                    "max_new_tokens": 300,
-                    "temperature": 0.8,
-                    "do_sample": True,
-                    "return_full_text": False
-                }
-            }
-            hf_response = query_huggingface(payload)
+            hf_response = hf_generate(prompt)
             print(f"HF Response: {hf_response}")  # Debug output
             
             # If Hugging Face works, use its response
-            if hf_response and isinstance(hf_response, list) and len(hf_response) > 0:
-                generated_text = hf_response[0].get("generated_text", "").strip()
-                if generated_text and len(generated_text) > 50:  # Only return if substantial content
-                    return generated_text
+            if hf_response and len(hf_response) > 50:
+                return hf_response
         
         # Fallback: Generate a structured reading based on card meanings
         return generate_structured_reading(question, selected_cards, reading_type)
