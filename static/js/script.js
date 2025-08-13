@@ -126,24 +126,29 @@ class TarotApp {
     }
     
     positionCardInFan(cardElement, index, totalCards) {
-        // Create a proper U-shaped fan from opponent's perspective
-        const maxAngle = 140; // Wider spread for U-shape
+        // Create a proper U-shaped fan like a professional tarot reader
+        const maxAngle = 160; // Wide spread for proper U-shape
         const angleStep = maxAngle / (totalCards - 1);
         const angle = (index * angleStep) - (maxAngle / 2);
         
         // Calculate position for U-shaped fan (arc curves toward user)
-        const radius = 280;
+        const radius = 320; // Increased radius for better spacing
         const x = Math.sin(angle * Math.PI / 180) * radius;
-        const y = Math.cos(angle * Math.PI / 180) * radius * 0.6; // Positive Y creates U-shape
+        const y = Math.cos(angle * Math.PI / 180) * radius * 0.4; // Flatter U-shape
         
-        // Cards rotate to face the user (from opponent's perspective)
+        // Cards rotate to follow the fan arc naturally
         cardElement.style.transform = `
             translate(${x}px, ${y}px) 
-            rotate(${angle * 0.8}deg)
+            rotate(${angle * 0.7}deg)
         `;
         
-        // Z-index to create proper layering (center cards on top)
-        cardElement.style.zIndex = totalCards - Math.abs(index - totalCards/2);
+        // Z-index for proper layering (center cards slightly on top, but overlapping naturally)
+        const centerDistance = Math.abs(index - totalCards/2);
+        cardElement.style.zIndex = Math.floor(totalCards - centerDistance);
+        
+        // Add slight random offset for more natural look
+        const randomOffset = (Math.random() - 0.5) * 2;
+        cardElement.style.transform += ` translateY(${randomOffset}px)`;
     }
     
     createCardElement(cardId) {
@@ -208,20 +213,21 @@ class TarotApp {
     }
     
     animateCardSelection(cardElement, selectionIndex) {
-        // Calculate position for selected cards at bottom of screen
-        const screenWidth = window.innerWidth;
+        // Calculate position for selected cards at bottom center
         const cardWidth = 120;
-        const spacing = 140;
-        const startX = (screenWidth / 2) - ((this.requiredCards - 1) * spacing / 2);
-        const targetX = startX + (selectionIndex * spacing) - (screenWidth / 2);
-        const targetY = 200; // Distance from original position
+        const spacing = 130;
+        const totalWidth = (this.requiredCards - 1) * spacing;
+        const startX = -totalWidth / 2;
+        const targetX = startX + (selectionIndex * spacing);
+        const targetY = 180; // Distance below the fan
         
         cardElement.style.transform = `
             translate(${targetX}px, ${targetY}px) 
             rotate(0deg) 
-            scale(1.2)
+            scale(1.3)
         `;
-        cardElement.style.zIndex = 1000 + selectionIndex;
+        cardElement.style.zIndex = 2000 + selectionIndex;
+        cardElement.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     }
     
     deselectCard(cardId, cardElement) {
@@ -229,6 +235,21 @@ class TarotApp {
         if (index > -1) {
             this.selectedCards.splice(index, 1);
             cardElement.classList.remove('selected');
+            
+            // Reset card to original fan position
+            const totalCards = 78;
+            this.positionCardInFan(cardElement, cardId, totalCards);
+            cardElement.style.transition = 'all 0.6s ease';
+            
+            // Re-animate remaining selected cards
+            this.selectedCards.forEach((selectedCardId, newIndex) => {
+                const selectedElement = document.querySelector(`[data-card-id="${selectedCardId}"]`);
+                if (selectedElement) {
+                    setTimeout(() => {
+                        this.animateCardSelection(selectedElement, newIndex);
+                    }, 100);
+                }
+            });
         }
     }
     
