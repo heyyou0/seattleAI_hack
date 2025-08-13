@@ -68,4 +68,10 @@ Structure your response with clear sections and provide meaningful interpretatio
         return response.choices[0].message.content
         
     except Exception as e:
-        raise Exception(f"Failed to generate tarot reading: {str(e)}")
+        error_msg = str(e)
+        if "429" in error_msg or "quota" in error_msg.lower():
+            raise Exception("OpenAI API quota exceeded. Please check your OpenAI account billing and usage limits at https://platform.openai.com/account/usage")
+        elif "401" in error_msg or "unauthorized" in error_msg.lower():
+            raise Exception("OpenAI API key is invalid. Please check your API key at https://platform.openai.com/api-keys")
+        else:
+            raise Exception(f"Failed to generate tarot reading: {str(e)}")
