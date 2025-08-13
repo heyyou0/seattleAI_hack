@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystic Tarot - AI-Powered Divination</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="mystical-bg">
+        <!-- Header -->
+        <header class="mystical-header text-center py-4">
+            <div class="container">
+                <h1 class="mystical-title">
+                    <i class="fas fa-moon me-3"></i>
+                    Mystic Tarot
+                    <i class="fas fa-star ms-3"></i>
+                </h1>
+                <p class="mystical-subtitle">AI-Powered Divination & Guidance</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container py-5">
+            <!-- Question & Reading Type Section -->
+            <div id="question-section" class="mystical-card mx-auto mb-5">
+                <div class="card-body text-center">
+                    <h2 class="mystical-section-title mb-4">
+                        <i class="fas fa-question-circle me-2"></i>
+                        Ask the Universe
+                    </h2>
+                    
+                    <div class="mb-4">
+                        <label for="user-question" class="form-label mystical-label">What guidance do you seek?</label>
+                        <textarea id="user-question" class="form-control mystical-input" rows="3" 
+                            placeholder="Enter your question about love, career, life direction, or any matter of the heart..."></textarea>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label mystical-label">Choose Your Reading Type</label>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <div class="reading-type-option">
+                                <input type="radio" id="one-card" name="reading-type" value="1-card" class="d-none" checked>
+                                <label for="one-card" class="mystical-button reading-type-btn active">
+                                    <i class="fas fa-eye me-2"></i>
+                                    One Card<br>
+                                    <small>Quick Insight</small>
+                                </label>
+                            </div>
+                            <div class="reading-type-option">
+                                <input type="radio" id="three-card" name="reading-type" value="3-card" class="d-none">
+                                <label for="three-card" class="mystical-button reading-type-btn">
+                                    <i class="fas fa-history me-2"></i>
+                                    Three Cards<br>
+                                    <small>Past, Present, Future</small>
+                                </label>
+                            </div>
+                            <div class="reading-type-option">
+                                <input type="radio" id="celtic-cross" name="reading-type" value="celtic-cross" class="d-none">
+                                <label for="celtic-cross" class="mystical-button reading-type-btn">
+                                    <i class="fas fa-plus me-2"></i>
+                                    Celtic Cross<br>
+                                    <small>Deep Insight</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="begin-reading-btn" class="mystical-button primary-btn">
+                        <i class="fas fa-magic me-2"></i>
+                        Begin Your Reading
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card Selection Section -->
+            <div id="card-selection-section" class="d-none">
+                <div class="text-center mb-4">
+                    <h2 class="mystical-section-title">
+                        <i class="fas fa-hand-pointer me-2"></i>
+                        Choose Your Cards
+                    </h2>
+                    <p class="mystical-text" id="selection-instruction">Select 1 card from the deck below</p>
+                    <div class="selection-counter">
+                        <span id="selected-count">0</span> / <span id="required-count">1</span> selected
+                    </div>
+                </div>
+                
+                <!-- Card Grid -->
+                <div id="card-grid" class="card-grid mb-4">
+                    <!-- Cards will be dynamically generated here -->
+                </div>
+                
+                <div class="text-center">
+                    <button id="reveal-reading-btn" class="mystical-button primary-btn d-none">
+                        <i class="fas fa-crystal-ball me-2"></i>
+                        Reveal Your Reading
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reading Results Section -->
+            <div id="reading-section" class="d-none">
+                <div class="mystical-card mx-auto mb-4">
+                    <div class="card-body">
+                        <h2 class="mystical-section-title text-center mb-4">
+                            <i class="fas fa-crystal-ball me-2"></i>
+                            Your Reading
+                        </h2>
+                        
+                        <!-- Selected Cards Display -->
+                        <div id="selected-cards-display" class="selected-cards-display mb-4">
+                            <!-- Selected cards will be displayed here -->
+                        </div>
+                        
+                        <!-- AI Reading -->
+                        <div id="ai-reading" class="ai-reading">
+                            <!-- AI-generated reading will appear here -->
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button id="new-reading-btn" class="mystical-button secondary-btn">
+                                <i class="fas fa-redo me-2"></i>
+                                Start New Reading
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Overlay -->
+            <div id="loading-overlay" class="loading-overlay d-none">
+                <div class="loading-content">
+                    <div class="mystical-spinner"></div>
+                    <p class="loading-text mt-3">Consulting the cosmic energies...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mystical-footer text-center py-4 mt-5">
+            <div class="container">
+                <p class="mystical-text mb-0">
+                    <i class="fas fa-star me-2"></i>
+                    Trust in the wisdom of the cards
+                    <i class="fas fa-star ms-2"></i>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

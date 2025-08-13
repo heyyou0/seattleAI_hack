@@ -1,0 +1,53 @@
+<svg width="120" height="180" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Card Background -->
+  <rect width="120" height="180" rx="12" fill="url(#cardGradient)" stroke="#8B5A2B" stroke-width="3"/>
+  
+  <!-- Ornate Border -->
+  <rect x="8" y="8" width="104" height="164" rx="8" fill="none" stroke="#C9A96E" stroke-width="2"/>
+  
+  <!-- Central Mystical Design -->
+  <g transform="translate(60, 90)">
+    <!-- Central Circle -->
+    <circle cx="0" cy="0" r="25" fill="none" stroke="#C9A96E" stroke-width="2"/>
+    
+    <!-- Inner Star -->
+    <path d="M0,-20 L6,-6 L20,0 L6,6 L0,20 L-6,6 L-20,0 L-6,-6 Z" fill="#8B5A2B" stroke="#C9A96E" stroke-width="1"/>
+    
+    <!-- Mystical Symbols -->
+    <circle cx="0" cy="-35" r="3" fill="#C9A96E"/>
+    <circle cx="25" cy="-25" r="3" fill="#C9A96E"/>
+    <circle cx="35" cy="0" r="3" fill="#C9A96E"/>
+    <circle cx="25" cy="25" r="3" fill="#C9A96E"/>
+    <circle cx="0" cy="35" r="3" fill="#C9A96E"/>
+    <circle cx="-25" cy="25" r="3" fill="#C9A96E"/>
+    <circle cx="-35" cy="0" r="3" fill="#C9A96E"/>
+    <circle cx="-25" cy="-25" r="3" fill="#C9A96E"/>
+  </g>
+  
+  <!-- Corner Decorations -->
+  <g transform="translate(15, 15)">
+    <path d="M0,0 L10,5 L0,10" stroke="#C9A96E" stroke-width="2" fill="none"/>
+  </g>
+  <g transform="translate(105, 15) rotate(90)">
+    <path d="M0,0 L10,5 L0,10" stroke="#C9A96E" stroke-width="2" fill="none"/>
+  </g>
+  <g transform="translate(105, 165) rotate(180)">
+    <path d="M0,0 L10,5 L0,10" stroke="#C9A96E" stroke-width="2" fill="none"/>
+  </g>
+  <g transform="translate(15, 165) rotate(270)">
+    <path d="M0,0 L10,5 L0,10" stroke="#C9A96E" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Mystical Text -->
+  <text x="60" y="25" text-anchor="middle" fill="#C9A96E" font-family="serif" font-size="12" font-style="italic">Mystic</text>
+  <text x="60" y="160" text-anchor="middle" fill="#C9A96E" font-family="serif" font-size="12" font-style="italic">Tarot</text>
+  
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2D1B69;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a0d4a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2D1B69;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
