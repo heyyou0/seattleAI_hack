@@ -25,11 +25,18 @@ def get_reading():
         if not selected_cards:
             return jsonify({'error': 'No cards selected'}), 400
         
-        # Get card details
+        # Get card details - selected_cards can be either IDs or card objects
         cards_details = []
-        for card_id in selected_cards:
-            if 0 <= card_id < len(TAROT_DECK):
-                cards_details.append(TAROT_DECK[card_id])
+        for card_item in selected_cards:
+            if isinstance(card_item, dict):
+                # Card object is already passed
+                cards_details.append(card_item)
+            elif isinstance(card_item, int):
+                # Card ID passed, get from deck
+                if 0 <= card_item < len(TAROT_DECK):
+                    cards_details.append(TAROT_DECK[card_item])
+            else:
+                logging.warning(f"Unexpected card item type: {type(card_item)}")
         
         if not cards_details:
             return jsonify({'error': 'Invalid card selection'}), 400

@@ -321,9 +321,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 0; /* Remove padding to allow full image coverage */
     color: var(--midnight);
     z-index: 1;
+    position: relative; /* Ensure positioning context for absolute images */
 }
 
 .card-front h6 {
@@ -333,6 +334,11 @@ body {
     margin: 5px 0 0 0;
     font-weight: 600;
     line-height: 1.2;
+    position: relative; /* Ensure title appears above image */
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent background for readability */
+    padding: 2px 8px;
+    border-radius: 4px;
 }
 
 .card-front img {
@@ -343,6 +349,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1; /* Behind the title but above the background */
 }
 
 /* Card Image Placeholder */
