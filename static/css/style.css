@@ -342,16 +342,16 @@ body {
     border-radius: 4px;
 }
 
+/* === MODIFIED CODE STARTS HERE === */
 .card-front img {
-    width: calc(100% - 6px); /* Fill inside border area */
-    height: calc(100% - 6px); /* Fill inside border area */
-    object-fit: cover;
-    border-radius: 9px; /* Slightly smaller than card border */
+    /* Use 'inset' to perfectly position and size the image within the border */
     position: absolute;
-    top: 3px; /* Position inside border */
-    left: 3px; /* Position inside border */
+    inset: 3px;
+    object-fit: cover;
+    border-radius: 9px; /* The correct radius (12px - 3px border) */
     z-index: 1; /* Behind the title but above the background */
 }
+/* === MODIFIED CODE ENDS HERE === */
 
 /* Card Image Placeholder */
 .card-image-placeholder {
@@ -495,29 +495,29 @@ body {
     .mystical-title {
         font-size: 2.5rem;
     }
-    
+
     .mystical-section-title {
         font-size: 1.8rem;
     }
-    
+
     .card-body {
         padding: 1.5rem;
     }
-    
+
     .card-grid {
         grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
         gap: 12px;
         padding: 15px;
     }
-    
+
     .selected-cards-display {
         gap: 15px;
     }
-    
+
     .selected-card {
         max-width: 100px;
     }
-    
+
     .reading-type-btn {
         padding: 15px 20px;
         min-width: 130px;
@@ -529,23 +529,23 @@ body {
     .mystical-title {
         font-size: 2rem;
     }
-    
+
     .mystical-subtitle {
         font-size: 1.1rem;
     }
-    
+
     .card-grid {
         grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
         gap: 10px;
         padding: 10px;
     }
-    
+
     .reading-type-btn {
         padding: 12px 15px;
         min-width: 110px;
         font-size: 0.9rem;
     }
-    
+
     .d-flex.gap-3 {
         gap: 0.5rem !important;
     }
