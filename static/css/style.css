@@ -233,11 +233,10 @@ body {
 }
 
 /* Card Fan Layout */
-/* --- MODIFIED: U-shape fan layout start --- */
 .card-grid {
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* Align cards to the bottom for the fan effect */
+    align-items: flex-end; /* Align cards to bottom for fan */
     max-width: 1400px;
     margin: 0 auto;
     padding: 40px 20px;
@@ -261,7 +260,6 @@ body {
     }
 }
 
-/* Tarot Card in Fan Layout */
 .tarot-card {
     width: 80px;
     height: 120px;
@@ -275,7 +273,7 @@ body {
 }
 
 .tarot-card:hover {
-    transform: translateY(10px) scale(1.1); /* Modified to move down, not up */
+    transform: translateY(10px) scale(1.1); /* move down */
     box-shadow: 0 20px 40px rgba(212, 175, 55, 0.6);
     z-index: 100;
 }
@@ -297,7 +295,7 @@ body {
     }
 }
 
-/* Specific card rotations for the U-shape fan effect (assuming 10 cards) */
+/* Specific card rotations for the U-shape fan effect */
 .tarot-card:nth-child(1) { transform: rotate(-30deg); }
 .tarot-card:nth-child(2) { transform: rotate(-22deg); }
 .tarot-card:nth-child(3) { transform: rotate(-14deg); }
@@ -308,7 +306,6 @@ body {
 .tarot-card:nth-child(8) { transform: rotate(26deg); }
 .tarot-card:nth-child(9) { transform: rotate(34deg); }
 .tarot-card:nth-child(10) { transform: rotate(42deg); }
-/* --- MODIFIED: U-shape fan layout end --- */
 
 .card-face {
     position: absolute;
@@ -317,7 +314,7 @@ body {
     border-radius: 12px;
     backface-visibility: hidden;
     border: 3px solid var(--antique-gold);
-    box-sizing: border-box; /* Include border in total size calculations */
+    box-sizing: border-box;
     transition: all 0.3s ease;
 }
 
@@ -336,10 +333,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0; /* Remove padding to allow full image coverage */
+    padding: 0;
     color: var(--midnight);
     z-index: 1;
-    position: relative; /* Ensure positioning context for absolute images */
+    position: relative;
 }
 
 .card-front h6 {
@@ -349,25 +346,22 @@ body {
     margin: 5px 0 0 0;
     font-weight: 600;
     line-height: 1.2;
-    position: relative; /* Ensure title appears above image */
+    position: relative;
     z-index: 2;
-    background: rgba(255, 255, 255, 0.9); /* Semi-transparent background for readability */
+    background: rgba(255, 255, 255, 0.9);
     padding: 2px 8px;
     border-radius: 4px;
 }
 
-/* --- MODIFIED: Card image fill fix --- */
 .card-front img {
-    /* Use 'inset' to perfectly position and size the image within the border */
     position: absolute;
     inset: 3px;
     object-fit: cover;
-    border-radius: 9px; /* The correct radius (12px - 3px border) */
-    z-index: 1; /* Behind the title but above the background */
-    width: calc(100% - 6px); /* Ensure it's fully inside the border */
+    border-radius: 9px;
+    z-index: 1;
+    width: calc(100% - 6px);
     height: calc(100% - 6px);
 }
-/* --- MODIFIED: Card image fill fix --- */
 
 /* Card Image Placeholder */
 .card-image-placeholder {
@@ -508,85 +502,33 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .mystical-title {
-        font-size: 2.5rem;
-    }
-
-    .mystical-section-title {
-        font-size: 1.8rem;
-    }
-
-    .card-body {
-        padding: 1.5rem;
-    }
-
-    .card-grid {
-        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-        gap: 12px;
-        padding: 15px;
-    }
-
-    .selected-cards-display {
-        gap: 15px;
-    }
-
-    .selected-card {
-        max-width: 100px;
-    }
-
-    .reading-type-btn {
-        padding: 15px 20px;
-        min-width: 130px;
-        font-size: 0.95rem;
-    }
+    .mystical-title { font-size: 2.5rem; }
+    .mystical-section-title { font-size: 1.8rem; }
+    .card-body { padding: 1.5rem; }
+    .card-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 12px; padding: 15px; }
+    .selected-cards-display { gap: 15px; }
+    .selected-card { max-width: 100px; }
+    .reading-type-btn { padding: 15px 20px; min-width: 130px; font-size: 0.95rem; }
 }
 
 @media (max-width: 576px) {
-    .mystical-title {
-        font-size: 2rem;
-    }
-
-    .mystical-subtitle {
-        font-size: 1.1rem;
-    }
-
-    .card-grid {
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-        gap: 10px;
-        padding: 10px;
-    }
-
-    .reading-type-btn {
-        padding: 12px 15px;
-        min-width: 110px;
-        font-size: 0.9rem;
-    }
-
-    .d-flex.gap-3 {
-        gap: 0.5rem !important;
-    }
+    .mystical-title { font-size: 2rem; }
+    .mystical-subtitle { font-size: 1.1rem; }
+    .card-grid { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; padding: 10px; }
+    .reading-type-btn { padding: 12px 15px; min-width: 110px; font-size: 0.9rem; }
+    .d-flex.gap-3 { gap: 0.5rem !important; }
 }
 
 /* Hidden utility */
-.d-none {
-    display: none !important;
-}
+.d-none { display: none !important; }
 
 /* Animation for card reveals */
 @keyframes cardReveal {
-    0% {
-        opacity: 0;
-        transform: scale(0.8) rotateY(180deg);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotateY(0deg);
-    }
+    0% { opacity: 0; transform: scale(0.8) rotateY(180deg); }
+    100% { opacity: 1; transform: scale(1) rotateY(0deg); }
 }
 
-.card-reveal-animation {
-    animation: cardReveal 0.6s ease-out forwards;
-}
+.card-reveal-animation { animation: cardReveal 0.6s ease-out forwards; }
 
 /* Mystical glow effect */
 .mystical-glow {
