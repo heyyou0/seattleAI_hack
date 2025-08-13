@@ -397,7 +397,7 @@ TAROT_DECK = [
             "reversed": ["Newly formed ideas", "Redirecting energy", "Self-limiting beliefs", "Lack of direction"]
         },
         "description": "The Page of Wands represents inspiration, ideas, discovery, and limitless potential.",
-        "image": "page_of_wands.jpg"
+        "image": "minor_arcana_wands_page.png"
     },
     {
         "id": 33,
@@ -409,7 +409,7 @@ TAROT_DECK = [
             "reversed": ["Passion project", "Haste", "Scattered energy", "Delays"]
         },
         "description": "The Knight of Wands represents energy, passion, inspired action, and adventure.",
-        "image": "knight_of_wands.jpg"
+        "image": "minor_arcana_wands_knight.png"
     },
     {
         "id": 34,
@@ -421,7 +421,7 @@ TAROT_DECK = [
             "reversed": ["Self-respect", "Self-confidence", "Introverted", "Re-establish sense of self"]
         },
         "description": "The Queen of Wands represents courage, confidence, independence, and social butterfly.",
-        "image": "queen_of_wands.jpg"
+        "image": "minor_arcana_wands_queen.png"
     },
     {
         "id": 35,
@@ -433,7 +433,7 @@ TAROT_DECK = [
             "reversed": ["Impulsiveness", "Haste", "Ruthless", "High expectations"]
         },
         "description": "The King of Wands represents natural leader, vision, entrepreneur, and honour.",
-        "image": "king_of_wands.jpg"
+        "image": "minor_arcana_wands_king.png"
     },
     
     # Cups Suit (36-49)
@@ -447,7 +447,7 @@ TAROT_DECK = [
             "reversed": ["Self-love", "Intuition", "Repressed emotions", "Emptiness"]
         },
         "description": "The Ace of Cups represents love, new relationships, compassion, and creativity.",
-        "image": "ace_of_cups.jpg"
+        "image": "minor_arcana_cups_ace.png"
     },
     {
         "id": 37,
@@ -459,7 +459,7 @@ TAROT_DECK = [
             "reversed": ["Self-love", "Break-ups", "Disharmony", "Distrust"]
         },
         "description": "The Two of Cups represents unified love, partnership, mutual attraction, and relationships.",
-        "image": "two_of_cups.jpg"
+        "image": "minor_arcana_cups_2.png"
     },
     {
         "id": 38,
@@ -471,7 +471,7 @@ TAROT_DECK = [
             "reversed": ["Independence", "Social gatherings", "Three's a crowd", "Gossip"]
         },
         "description": "The Three of Cups represents celebration, friendship, creativity, and collaborations.",
-        "image": "three_of_cups.jpg"
+        "image": "minor_arcana_cups_3.png"
     },
     {
         "id": 39,
@@ -483,7 +483,7 @@ TAROT_DECK = [
             "reversed": ["Retreat", "Withdrawal", "Checking in", "Stillness"]
         },
         "description": "The Four of Cups represents meditation, contemplation, apathy, and reevaluation.",
-        "image": "four_of_cups.jpg"
+        "image": "minor_arcana_cups_4.png"
     },
     {
         "id": 40,
@@ -495,7 +495,7 @@ TAROT_DECK = [
             "reversed": ["Personal setbacks", "Self-forgiveness", "Moving on", "Acceptance"]
         },
         "description": "The Five of Cups represents regret, failure, disappointment, and pessimism.",
-        "image": "five_of_cups.jpg"
+        "image": "minor_arcana_cups_5.png"
     },
     {
         "id": 41,
@@ -507,7 +507,7 @@ TAROT_DECK = [
             "reversed": ["Living in the past", "Forgiveness", "Lacking playfulness", "Maturity"]
         },
         "description": "The Six of Cups represents revisiting the past, childhood memories, innocence, and joy.",
-        "image": "six_of_cups.jpg"
+        "image": "minor_arcana_cups_6.png"
     },
     {
         "id": 42,
@@ -519,7 +519,7 @@ TAROT_DECK = [
             "reversed": ["Alignment", "Personal values", "Overwhelmed by choices", "Lack of purpose"]
         },
         "description": "The Seven of Cups represents opportunities, choices, wishful thinking, and illusion.",
-        "image": "seven_of_cups.jpg"
+        "image": "minor_arcana_cups_7.png"
     },
     {
         "id": 43,
@@ -531,7 +531,7 @@ TAROT_DECK = [
             "reversed": ["Trying one more time", "Indecision", "Aimless drifting", "Walking away"]
         },
         "description": "The Eight of Cups represents disappointment, abandonment, withdrawal, and escapism.",
-        "image": "eight_of_cups.jpg"
+        "image": "minor_arcana_cups_8.png"
     },
     {
         "id": 44,

@@ -4,8 +4,8 @@ import requests
 import time
 
 # Using Hugging Face Inference API for free AI-powered tarot readings
-# Using a more suitable model for text generation
-HF_API_URL = "https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium"
+# Using a text generation model better suited for tarot readings
+HF_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
 HF_HEADERS = {
     "Authorization": f"Bearer {os.environ.get('HF_API_KEY', '')}",
     "Content-Type": "application/json"
@@ -49,20 +49,24 @@ def generate_tarot_reading(question, selected_cards, reading_type):
         # Try Hugging Face first, but if it fails, provide a structured reading
         hf_response = None
         if HF_HEADERS["Authorization"] != "Bearer ":
-            prompt = f"As a tarot reader, interpret these cards for the question '{question}': {cards_text}. {context}"
+            prompt = f"You are a wise tarot reader. For the question '{question}', interpret these cards:\n{cards_text}\n\n{context}\n\nProvide an insightful, mystical reading:"
             payload = {
                 "inputs": prompt,
                 "parameters": {
-                    "max_new_tokens": 400,
-                    "temperature": 0.7,
+                    "max_new_tokens": 300,
+                    "temperature": 0.8,
+                    "do_sample": True,
                     "return_full_text": False
                 }
             }
             hf_response = query_huggingface(payload)
+            print(f"HF Response: {hf_response}")  # Debug output
         
         # If Hugging Face works, use its response
         if hf_response and isinstance(hf_response, list) and len(hf_response) > 0:
-            return hf_response[0].get("generated_text", "").strip()
+            generated_text = hf_response[0].get("generated_text", "").strip()
+            if generated_text and len(generated_text) > 50:  # Only return if substantial content
+                return generated_text
         
         # Fallback: Generate a structured reading based on card meanings
         return generate_structured_reading(question, selected_cards, reading_type)

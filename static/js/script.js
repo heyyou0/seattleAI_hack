@@ -126,20 +126,20 @@ class TarotApp {
     }
     
     positionCardInFan(cardElement, index, totalCards) {
-        // Calculate fan spread angle (reduced density for easier selection)
-        const maxAngle = 120; // Total spread angle in degrees (increased for less density)
+        // Create a proper U-shaped fan from opponent's perspective
+        const maxAngle = 140; // Wider spread for U-shape
         const angleStep = maxAngle / (totalCards - 1);
         const angle = (index * angleStep) - (maxAngle / 2);
         
-        // Calculate position in fan - opposite perspective (as if dealing to user)
-        const radius = 300; // Distance from center (increased for less density)
+        // Calculate position for U-shaped fan (arc curves toward user)
+        const radius = 280;
         const x = Math.sin(angle * Math.PI / 180) * radius;
-        const y = -Math.cos(angle * Math.PI / 180) * radius * 0.4; // Negative Y for opposite perspective, deeper arc
+        const y = Math.cos(angle * Math.PI / 180) * radius * 0.6; // Positive Y creates U-shape
         
-        // Apply transform with rotation and position (opposite rotation)
+        // Cards rotate to face the user (from opponent's perspective)
         cardElement.style.transform = `
             translate(${x}px, ${y}px) 
-            rotate(${-angle}deg)
+            rotate(${angle * 0.8}deg)
         `;
         
         // Z-index to create proper layering (center cards on top)
@@ -418,11 +418,11 @@ class TarotApp {
     getCardImageOrPlaceholder(card) {
         // Try to get actual card image path
         const imagePath = `/static/images/${card.image}`;
-        return `<img src="${imagePath}" alt="${card.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" 
+        return `<img src="${imagePath}" alt="${card.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; position: absolute; top: 0; left: 0;" 
                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; flex-direction: column;">
-                    <div style="font-size: 2rem; margin-bottom: 5px;">✦</div>
-                    <div style="font-size: 0.6rem; text-align: center;">${card.name}</div>
+                <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; flex-direction: column; background: linear-gradient(145deg, #2D1B69, #1a0d4a); border-radius: 8px; position: absolute; top: 0; left: 0;">
+                    <div style="font-size: 2rem; margin-bottom: 5px; color: #C9A96E;">✦</div>
+                    <div style="font-size: 0.6rem; text-align: center; color: #C9A96E; padding: 5px;">${card.name}</div>
                 </div>`;
     }
     
@@ -468,12 +468,17 @@ class TarotApp {
         );
         document.querySelector('label[for="one-card"]').classList.add('active');
         
-        // Reset card grid
+        // Reset card grid and regenerate to fix positioning bug
         document.querySelectorAll('.tarot-card').forEach(card => {
             card.classList.remove('selected');
             card.style.opacity = '1';
             card.style.cursor = 'pointer';
+            card.style.transform = ''; // Reset transform
+            card.style.zIndex = ''; // Reset z-index
         });
+        
+        // Regenerate the card grid to reset all positions
+        this.generateCardGrid();
         
         // Show question section, hide others
         document.getElementById('question-section').classList.remove('d-none');
