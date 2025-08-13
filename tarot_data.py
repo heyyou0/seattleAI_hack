@@ -787,7 +787,7 @@ TAROT_DECK = [
             "reversed": ["Lost opportunity", "Lack of planning and foresight", "Bad investment"]
         },
         "description": "The Ace of Pentacles represents a new financial or career opportunity, manifestation, and abundance.",
-        "image": "ace_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_ace.png"
     },
     {
         "id": 65,
@@ -799,7 +799,7 @@ TAROT_DECK = [
             "reversed": ["Over-committed", "Disorganisation", "Reprioritisation", "Overwhelm"]
         },
         "description": "The Two of Pentacles represents multiple priorities, time management, prioritisation, and adaptability.",
-        "image": "two_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_2.png"
     },
     {
         "id": 66,
@@ -811,7 +811,7 @@ TAROT_DECK = [
             "reversed": ["Disharmony", "Misaligned goals", "Lack of teamwork", "Apathy"]
         },
         "description": "The Three of Pentacles represents teamwork, collaboration, learning, and implementation.",
-        "image": "three_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_3.png"
     },
     {
         "id": 67,
@@ -823,7 +823,7 @@ TAROT_DECK = [
             "reversed": ["Over-spending", "Greed", "Self-protection", "Financial insecurity"]
         },
         "description": "The Four of Pentacles represents saving money, security, conservatism, and scarcity.",
-        "image": "four_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_4.png"
     },
     {
         "id": 68,
@@ -835,7 +835,7 @@ TAROT_DECK = [
             "reversed": ["Recovery from financial loss", "Spiritual poverty", "Inner resources", "Positive change"]
         },
         "description": "The Five of Pentacles represents financial loss, poverty, lack mindset, and isolation.",
-        "image": "five_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_5.png"
     },
     {
         "id": 69,
@@ -847,7 +847,7 @@ TAROT_DECK = [
             "reversed": ["Self-care", "Unpaid debts", "One-sided charity", "Power dynamics"]
         },
         "description": "The Six of Pentacles represents giving, receiving, sharing wealth, and generosity.",
-        "image": "six_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_6.png"
     },
     {
         "id": 70,
@@ -859,7 +859,7 @@ TAROT_DECK = [
             "reversed": ["Lack of long-term vision", "Limited success or reward", "Impatience", "Lack of reward"]
         },
         "description": "The Seven of Pentacles represents long-term view, sustainable results, perseverance, and investment.",
-        "image": "seven_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_7.png"
     },
     {
         "id": 71,
@@ -871,7 +871,7 @@ TAROT_DECK = [
             "reversed": ["Self-development", "Perfectionism", "Misdirected activity", "Lack of quality"]
         },
         "description": "The Eight of Pentacles represents apprenticeship, repetitive tasks, mastery, and skill development.",
-        "image": "eight_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_8.png"
     },
     {
         "id": 72,
@@ -883,7 +883,7 @@ TAROT_DECK = [
             "reversed": ["Self-worth", "Over-investment in work", "Hustling", "Material instability"]
         },
         "description": "The Nine of Pentacles represents abundance, luxury, self-sufficiency, and financial independence.",
-        "image": "nine_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_9.png"
     },
     {
         "id": 73,
@@ -895,7 +895,7 @@ TAROT_DECK = [
             "reversed": ["The dark side of wealth", "Financial failure or loss", "Lack of family support", "Fleeting success"]
         },
         "description": "The Ten of Pentacles represents wealth, financial security, family, and long-term success.",
-        "image": "ten_of_pentacles.jpg"
+        "image": "minor_arcana_pentacles_10.png"
     },
     {
         "id": 74,

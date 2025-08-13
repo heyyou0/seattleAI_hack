@@ -4,8 +4,8 @@ import requests
 import time
 
 # Using Hugging Face Inference API for free AI-powered tarot readings
-# Using a text generation model better suited for tarot readings
-HF_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
+# Using a smaller, more accessible model for text generation
+HF_API_URL = "https://api-inference.huggingface.co/models/gpt2"
 HF_HEADERS = {
     "Authorization": f"Bearer {os.environ.get('HF_API_KEY', '')}",
     "Content-Type": "application/json"
