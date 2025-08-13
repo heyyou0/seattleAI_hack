@@ -11,7 +11,7 @@ TAROT_DECK = [
             "reversed": ["Recklessness", "Risk-taking", "Foolishness", "Lack of direction"]
         },
         "description": "The Fool represents new beginnings, having faith in the future, being inexperienced, not knowing what to expect, having beginner's luck, improvisation and believing in the universe.",
-        "image": "the_fool.jpg"
+        "image": "the_fool.svg"
     },
     {
         "id": 1,
@@ -23,7 +23,7 @@ TAROT_DECK = [
             "reversed": ["Manipulation", "Poor planning", "Untapped talents", "Confusion"]
         },
         "description": "The Magician represents manifestation, resourcefulness, power, and inspired action. He has the ability to turn ideas into reality.",
-        "image": "the_magician.jpg"
+        "image": "the_magician.svg"
     },
     {
         "id": 2,
