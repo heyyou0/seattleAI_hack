@@ -1,0 +1,49 @@
+<svg width="200" height="300" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Card Background -->
+  <rect width="200" height="300" rx="15" fill="url(#foolGradient)" stroke="#8B5A2B" stroke-width="3"/>
+  
+  <!-- The Fool Figure -->
+  <g transform="translate(100, 150)">
+    <!-- Sun -->
+    <circle cx="0" cy="-80" r="20" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+    <g stroke="#FFD700" stroke-width="2">
+      <line x1="0" y1="-110" x2="0" y2="-105"/>
+      <line x1="15" y1="-95" x2="20" y2="-90"/>
+      <line x1="15" y1="-65" x2="20" y2="-70"/>
+      <line x1="0" y1="-50" x2="0" y2="-55"/>
+      <line x1="-15" y1="-65" x2="-20" y2="-70"/>
+      <line x1="-15" y1="-95" x2="-20" y2="-90"/>
+    </g>
+    
+    <!-- Figure -->
+    <circle cx="0" cy="-20" r="15" fill="#FDBCB4"/>
+    <rect x="-12" y="-5" width="24" height="40" rx="5" fill="#4169E1"/>
+    <rect x="-8" y="35" width="16" height="25" rx="3" fill="#8B4513"/>
+    
+    <!-- Rose -->
+    <circle cx="-25" cy="-15" r="8" fill="#FF69B4"/>
+    
+    <!-- Staff -->
+    <rect x="20" y="-40" width="3" height="60" fill="#8B4513"/>
+    <rect x="18" y="-42" width="7" height="8" fill="#FFD700"/>
+    
+    <!-- Cliff -->
+    <path d="M-80,50 L80,50 L80,120 L-80,120 Z" fill="#A0522D"/>
+    
+    <!-- Dog -->
+    <ellipse cx="30" cy="40" rx="8" ry="6" fill="#FFFFFF"/>
+    <circle cx="35" cy="38" r="3" fill="#000000"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="100" y="280" text-anchor="middle" fill="#8B5A2B" font-family="serif" font-size="16" font-weight="bold">The Fool</text>
+  <text x="100" y="295" text-anchor="middle" fill="#8B5A2B" font-family="serif" font-size="12">0</text>
+  
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="foolGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E6F3FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8E6B8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

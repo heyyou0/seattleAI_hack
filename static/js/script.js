@@ -111,11 +111,37 @@ class TarotApp {
         const cardGrid = document.getElementById('card-grid');
         cardGrid.innerHTML = '';
         
-        // Generate 78 cards (full tarot deck)
+        // Create fan container
+        const fanContainer = document.createElement('div');
+        fanContainer.className = 'card-fan-container';
+        
+        // Generate 78 cards (full tarot deck) in fan layout
         for (let i = 0; i < 78; i++) {
             const cardElement = this.createCardElement(i);
-            cardGrid.appendChild(cardElement);
+            this.positionCardInFan(cardElement, i, 78);
+            fanContainer.appendChild(cardElement);
         }
+        
+        cardGrid.appendChild(fanContainer);
+    }
+    
+    positionCardInFan(cardElement, index, totalCards) {
+        // Calculate fan spread angle (adjust for visual appeal)
+        const maxAngle = 90; // Total spread angle in degrees
+        const angleStep = maxAngle / (totalCards - 1);
+        const angle = (index * angleStep) - (maxAngle / 2);
+        
+        // Calculate position in fan
+        const radius = 250; // Distance from center
+        const x = Math.sin(angle * Math.PI / 180) * radius;
+        const y = Math.cos(angle * Math.PI / 180) * radius * 0.3; // Flatten the arc
+        
+        // Apply transform with rotation and position
+        cardElement.style.transform = `
+            translate(${x}px, ${y}px) 
+            rotate(${angle}deg)
+        `;
+        cardElement.style.zIndex = totalCards - Math.abs(index - totalCards/2);
     }
     
     createCardElement(cardId) {
@@ -125,14 +151,17 @@ class TarotApp {
         
         cardDiv.innerHTML = `
             <div class="card-face card-back">
-                <svg width="60" height="80" viewBox="0 0 60 80" fill="none">
-                    <rect width="60" height="80" rx="8" fill="#2D1B69" stroke="#8B5A2B" stroke-width="2"/>
-                    <circle cx="30" cy="25" r="8" fill="#C9A96E"/>
-                    <path d="M22 40 L38 40 M22 45 L38 45 M22 50 L38 50" stroke="#C9A96E" stroke-width="2"/>
-                    <circle cx="30" cy="60" r="8" fill="#C9A96E"/>
+                <svg width="100%" height="100%" viewBox="0 0 80 120" fill="none">
+                    <rect width="80" height="120" rx="12" fill="#2D1B69" stroke="#8B5A2B" stroke-width="2"/>
+                    <circle cx="40" cy="30" r="10" fill="#C9A96E"/>
+                    <path d="M30 60 L50 60 M30 70 L50 70 M30 80 L50 80" stroke="#C9A96E" stroke-width="2"/>
+                    <circle cx="40" cy="100" r="10" fill="#C9A96E"/>
                 </svg>
             </div>
             <div class="card-face card-front">
+                <div class="card-image-placeholder" id="card-image-${cardId}">
+                    ✦
+                </div>
                 <h6 id="card-name-${cardId}">Loading...</h6>
             </div>
         `;
@@ -167,8 +196,30 @@ class TarotApp {
         this.selectedCards.push(cardId);
         cardElement.classList.add('selected');
         
+        // Animate card coming down from fan
+        setTimeout(() => {
+            this.animateCardSelection(cardElement, this.selectedCards.length - 1);
+        }, 100);
+        
         // Load card data and update front face
         this.loadCardData(cardId);
+    }
+    
+    animateCardSelection(cardElement, selectionIndex) {
+        // Calculate position for selected cards at bottom of screen
+        const screenWidth = window.innerWidth;
+        const cardWidth = 120;
+        const spacing = 140;
+        const startX = (screenWidth / 2) - ((this.requiredCards - 1) * spacing / 2);
+        const targetX = startX + (selectionIndex * spacing) - (screenWidth / 2);
+        const targetY = 200; // Distance from original position
+        
+        cardElement.style.transform = `
+            translate(${targetX}px, ${targetY}px) 
+            rotate(0deg) 
+            scale(1.2)
+        `;
+        cardElement.style.zIndex = 1000 + selectionIndex;
     }
     
     deselectCard(cardId, cardElement) {
@@ -186,6 +237,21 @@ class TarotApp {
             
             if (cardData && cardData.name) {
                 document.getElementById(`card-name-${cardId}`).textContent = cardData.name;
+                
+                // Try to load actual card image
+                const imageElement = document.getElementById(`card-image-${cardId}`);
+                const imagePath = `/static/images/${cardData.image}`;
+                
+                // Create img element to test if image exists
+                const img = new Image();
+                img.onload = () => {
+                    imageElement.innerHTML = `<img src="${imagePath}" alt="${cardData.name}">`;
+                };
+                img.onerror = () => {
+                    // Keep placeholder if image doesn't exist
+                    imageElement.innerHTML = `<div style="font-size: 1.5rem;">✦</div><div style="font-size: 0.6rem;">${cardData.name}</div>`;
+                };
+                img.src = imagePath;
             }
         } catch (error) {
             console.error('Error loading card data:', error);
@@ -278,52 +344,111 @@ class TarotApp {
     }
     
     displayReading(reading, cards) {
-        // Display selected cards
-        const cardsDisplay = document.getElementById('selected-cards-display');
-        cardsDisplay.innerHTML = '';
-        
-        cards.forEach((card, index) => {
-            const cardDiv = document.createElement('div');
-            cardDiv.className = 'selected-card card-reveal-animation';
-            cardDiv.style.animationDelay = `${index * 0.2}s`;
-            
-            cardDiv.innerHTML = `
-                <div class="card-image-placeholder" style="
-                    width: 100%;
-                    height: 150px;
-                    background: linear-gradient(145deg, #2D1B69, #1a0d4a);
-                    border: 2px solid #C9A96E;
-                    border-radius: 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: #C9A96E;
-                    font-family: 'Playfair Display', serif;
-                    font-size: 0.9rem;
-                    text-align: center;
-                    padding: 10px;
-                ">
-                    ${card.name}
-                </div>
-                <h6>${card.name}</h6>
-            `;
-            
-            cardsDisplay.appendChild(cardDiv);
-        });
-        
-        // Display AI reading
-        document.getElementById('ai-reading').innerHTML = `
-            <div style="white-space: pre-line;">${reading}</div>
-        `;
-        
         // Hide card selection and show reading
         document.getElementById('card-selection-section').classList.add('d-none');
         document.getElementById('reading-section').classList.remove('d-none');
+        
+        // Display selected cards with flipping animation
+        const cardsDisplay = document.getElementById('selected-cards-display');
+        cardsDisplay.innerHTML = '';
+        
+        // Create cards first (face down)
+        const cardElements = [];
+        cards.forEach((card, index) => {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'selected-card';
+            cardDiv.style.opacity = '0';
+            cardDiv.style.transform = 'translateY(20px)';
+            
+            cardDiv.innerHTML = `
+                <div class="tarot-card" style="width: 120px; height: 180px; position: relative;">
+                    <div class="card-face card-back" style="transform: rotateY(0deg);">
+                        <svg width="100%" height="100%" viewBox="0 0 80 120" fill="none">
+                            <rect width="80" height="120" rx="12" fill="#2D1B69" stroke="#8B5A2B" stroke-width="2"/>
+                            <circle cx="40" cy="30" r="10" fill="#C9A96E"/>
+                            <path d="M30 60 L50 60 M30 70 L50 70 M30 80 L50 80" stroke="#C9A96E" stroke-width="2"/>
+                            <circle cx="40" cy="100" r="10" fill="#C9A96E"/>
+                        </svg>
+                    </div>
+                    <div class="card-face card-front" style="transform: rotateY(180deg);">
+                        <div class="card-image-container" style="
+                            width: 90%;
+                            height: 70%;
+                            background: linear-gradient(145deg, #F5F1FF, #E6D7FF);
+                            border: 2px solid #C9A96E;
+                            border-radius: 8px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #2D1B69;
+                            font-family: 'Cinzel', serif;
+                            font-size: 0.8rem;
+                            text-align: center;
+                            margin-bottom: 5px;
+                            position: relative;
+                            overflow: hidden;
+                        ">
+                            ${this.getCardImageOrPlaceholder(card)}
+                        </div>
+                    </div>
+                </div>
+                <h6 style="margin-top: 10px; color: var(--golden-glow);">${card.name}</h6>
+            `;
+            
+            cardsDisplay.appendChild(cardDiv);
+            cardElements.push(cardDiv);
+        });
+        
+        // Animate cards appearing and then flipping one by one
+        this.animateCardFlipSequence(cardElements, () => {
+            // Display AI reading after all cards are flipped
+            document.getElementById('ai-reading').innerHTML = `
+                <div style="white-space: pre-line;">${reading}</div>
+            `;
+        });
         
         // Smooth scroll to reading
         document.getElementById('reading-section').scrollIntoView({
             behavior: 'smooth'
         });
+    }
+    
+    getCardImageOrPlaceholder(card) {
+        // Try to get actual card image path
+        const imagePath = `/static/images/${card.image}`;
+        return `<img src="${imagePath}" alt="${card.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" 
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; flex-direction: column;">
+                    <div style="font-size: 2rem; margin-bottom: 5px;">✦</div>
+                    <div style="font-size: 0.6rem; text-align: center;">${card.name}</div>
+                </div>`;
+    }
+    
+    animateCardFlipSequence(cardElements, callback) {
+        // First, make cards appear
+        cardElements.forEach((cardElement, index) => {
+            setTimeout(() => {
+                cardElement.style.transition = 'all 0.6s ease';
+                cardElement.style.opacity = '1';
+                cardElement.style.transform = 'translateY(0)';
+            }, index * 200);
+        });
+        
+        // Then flip cards one by one
+        setTimeout(() => {
+            cardElements.forEach((cardElement, index) => {
+                setTimeout(() => {
+                    const tarotCard = cardElement.querySelector('.tarot-card');
+                    tarotCard.classList.add('flipped');
+                    tarotCard.style.transform = 'rotateY(180deg)';
+                    
+                    // Call callback after last card is flipped
+                    if (index === cardElements.length - 1) {
+                        setTimeout(callback, 600);
+                    }
+                }, index * 800);
+            });
+        }, cardElements.length * 200 + 500);
     }
     
     resetApplication() {
