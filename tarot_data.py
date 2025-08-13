@@ -11,7 +11,7 @@ TAROT_DECK = [
             "reversed": ["Recklessness", "Risk-taking", "Foolishness", "Lack of direction"]
         },
         "description": "The Fool represents new beginnings, having faith in the future, being inexperienced, not knowing what to expect, having beginner's luck, improvisation and believing in the universe.",
-        "image": "the_fool.svg"
+        "image": "major_arcana_fool.png"
     },
     {
         "id": 1,
@@ -23,7 +23,7 @@ TAROT_DECK = [
             "reversed": ["Manipulation", "Poor planning", "Untapped talents", "Confusion"]
         },
         "description": "The Magician represents manifestation, resourcefulness, power, and inspired action. He has the ability to turn ideas into reality.",
-        "image": "the_magician.svg"
+        "image": "major_arcana_magician.png"
     },
     {
         "id": 2,
@@ -35,7 +35,7 @@ TAROT_DECK = [
             "reversed": ["Secrets", "Disconnected from intuition", "Withdrawal", "Silence"]
         },
         "description": "The High Priestess represents intuition, sacred knowledge, divine feminine, and the subconscious mind.",
-        "image": "the_high_priestess.jpg"
+        "image": "major_arcana_priestess.png"
     },
     {
         "id": 3,
@@ -47,7 +47,7 @@ TAROT_DECK = [
             "reversed": ["Creative block", "Dependence on others", "Infertility", "Lack of growth"]
         },
         "description": "The Empress represents femininity, beauty, nature, and abundance. She is the mother figure of the tarot.",
-        "image": "the_empress.jpg"
+        "image": "major_arcana_empress.png"
     },
     {
         "id": 4,
@@ -59,7 +59,7 @@ TAROT_DECK = [
             "reversed": ["Tyranny", "Rigidity", "Coldness", "Abuse of power"]
         },
         "description": "The Emperor represents authority, structure, control, and fatherly figure. He is the father figure of the tarot.",
-        "image": "the_emperor.jpg"
+        "image": "major_arcana_emperor.png"
     },
     {
         "id": 5,
@@ -71,7 +71,7 @@ TAROT_DECK = [
             "reversed": ["Personal beliefs", "Freedom", "Challenging the status quo", "Rebellion"]
         },
         "description": "The Hierophant represents spiritual wisdom, religious beliefs, conformity, and tradition.",
-        "image": "the_hierophant.jpg"
+        "image": "major_arcana_hierophant.png"
     },
     {
         "id": 6,
@@ -83,7 +83,7 @@ TAROT_DECK = [
             "reversed": ["Disharmony", "Imbalance", "Misalignment of values", "Broken relationship"]
         },
         "description": "The Lovers represents love, harmony, relationships, and values alignment.",
-        "image": "the_lovers.jpg"
+        "image": "major_arcana_lovers.png"
     },
     {
         "id": 7,
@@ -95,7 +95,7 @@ TAROT_DECK = [
             "reversed": ["Lack of control", "Lack of direction", "Aggression", "Powerlessness"]
         },
         "description": "The Chariot represents control, willpower, success, and determination.",
-        "image": "the_chariot.jpg"
+        "image": "major_arcana_chariot.png"
     },
     {
         "id": 8,
@@ -107,7 +107,7 @@ TAROT_DECK = [
             "reversed": ["Self doubt", "Low energy", "Raw emotion", "Weakness"]
         },
         "description": "Strength represents inner strength, courage, persuasion, and influence.",
-        "image": "strength.jpg"
+        "image": "major_arcana_strength.png"
     },
     {
         "id": 9,
@@ -119,7 +119,7 @@ TAROT_DECK = [
             "reversed": ["Isolation", "Loneliness", "Withdrawal", "Paranoia"]
         },
         "description": "The Hermit represents soul searching, introspection, inner guidance, and solitude.",
-        "image": "the_hermit.jpg"
+        "image": "major_arcana_hermit.png"
     },
     {
         "id": 10,
@@ -131,7 +131,7 @@ TAROT_DECK = [
             "reversed": ["Bad luck", "Lack of control", "Clinging to control", "Bad luck"]
         },
         "description": "The Wheel of Fortune represents good luck, karma, life cycles, and destiny.",
-        "image": "wheel_of_fortune.jpg"
+        "image": "major_arcana_fortune.png"
     },
     {
         "id": 11,
@@ -143,7 +143,7 @@ TAROT_DECK = [
             "reversed": ["Unfairness", "Lack of accountability", "Dishonesty", "Bias"]
         },
         "description": "Justice represents justice, fairness, truth, and cause and effect.",
-        "image": "justice.jpg"
+        "image": "major_arcana_justice.png"
     },
     {
         "id": 12,
@@ -155,7 +155,7 @@ TAROT_DECK = [
             "reversed": ["Delays", "Resistance", "Stalling", "Indecision"]
         },
         "description": "The Hanged Man represents suspension, restriction, letting go, and sacrifice.",
-        "image": "the_hanged_man.jpg"
+        "image": "major_arcana_hanged.png"
     },
     {
         "id": 13,
@@ -167,7 +167,7 @@ TAROT_DECK = [
             "reversed": ["Resistance to change", "Personal transformation", "Inner purging", "Stagnation"]
         },
         "description": "Death represents endings, beginnings, change, and transformation. It rarely means literal death.",
-        "image": "death.jpg"
+        "image": "major_arcana_death.png"
     },
     {
         "id": 14,
@@ -179,7 +179,7 @@ TAROT_DECK = [
             "reversed": ["Imbalance", "Excess", "Self-healing", "Re-alignment"]
         },
         "description": "Temperance represents balance, moderation, patience, and purpose.",
-        "image": "temperance.jpg"
+        "image": "major_arcana_temperance.png"
     },
     {
         "id": 15,
@@ -191,7 +191,7 @@ TAROT_DECK = [
             "reversed": ["Releasing limiting beliefs", "Exploring dark thoughts", "Detachment", "Breaking free"]
         },
         "description": "The Devil represents bondage, addiction, sexuality, and materialism.",
-        "image": "the_devil.jpg"
+        "image": "major_arcana_devil.png"
     },
     {
         "id": 16,
@@ -203,7 +203,7 @@ TAROT_DECK = [
             "reversed": ["Personal transformation", "Fear of change", "Avoiding disaster", "Delayed transformation"]
         },
         "description": "The Tower represents sudden change, upheaval, chaos, and revelation.",
-        "image": "the_tower.jpg"
+        "image": "major_arcana_tower.png"
     },
     {
         "id": 17,
@@ -215,7 +215,7 @@ TAROT_DECK = [
             "reversed": ["Lack of faith", "Despair", "Self-trust", "Disconnection"]
         },
         "description": "The Star represents hope, faith, purpose, and renewal.",
-        "image": "the_star.jpg"
+        "image": "major_arcana_star.png"
     },
     {
         "id": 18,
@@ -227,7 +227,7 @@ TAROT_DECK = [
             "reversed": ["Release of fear", "Repressed emotion", "Inner confusion", "Unveiled secrets"]
         },
         "description": "The Moon represents illusion, fear, anxiety, and subconscious.",
-        "image": "the_moon.jpg"
+        "image": "major_arcana_moon.png"
     },
     {
         "id": 19,
@@ -239,7 +239,7 @@ TAROT_DECK = [
             "reversed": ["Inner child", "Feeling down", "Overly optimistic", "Lack of success"]
         },
         "description": "The Sun represents positivity, fun, warmth, and success.",
-        "image": "the_sun.jpg"
+        "image": "major_arcana_sun.png"
     },
     {
         "id": 20,
@@ -251,7 +251,7 @@ TAROT_DECK = [
             "reversed": ["Self-doubt", "Inner critic", "Ignoring the call", "Lack of self awareness"]
         },
         "description": "Judgement represents judgement, rebirth, inner calling, and absolution.",
-        "image": "judgement.jpg"
+        "image": "major_arcana_judgement.png"
     },
     {
         "id": 21,
@@ -263,7 +263,7 @@ TAROT_DECK = [
             "reversed": ["Seeking personal closure", "Shortcut", "Delays", "Lack of achievement"]
         },
         "description": "The World represents completion, integration, accomplishment, and travel.",
-        "image": "the_world.jpg"
+        "image": "major_arcana_world.png"
     },
     
     # Wands Suit (22-35)
@@ -277,7 +277,7 @@ TAROT_DECK = [
             "reversed": ["An emerging idea", "Lack of direction", "Distractions", "Delays"]
         },
         "description": "The Ace of Wands represents inspiration, new opportunities, growth, and potential.",
-        "image": "ace_of_wands.jpg"
+        "image": "minor_arcana_wands_ace.png"
     },
     {
         "id": 23,
@@ -289,7 +289,7 @@ TAROT_DECK = [
             "reversed": ["Personal goals", "Inner alignment", "Fear of unknown", "Lack of planning"]
         },
         "description": "The Two of Wands represents future planning, making decisions, leaving comfort zone, and personal goals.",
-        "image": "two_of_wands.jpg"
+        "image": "minor_arcana_wands_2.png"
     },
     {
         "id": 24,
@@ -301,7 +301,7 @@ TAROT_DECK = [
             "reversed": ["Playing small", "Lack of foresight", "Unexpected delays", "Lack of preparation"]
         },
         "description": "The Three of Wands represents expansion, foresight, overseas opportunities, and leadership.",
-        "image": "three_of_wands.jpg"
+        "image": "minor_arcana_wands_3.png"
     },
     {
         "id": 25,
@@ -313,7 +313,7 @@ TAROT_DECK = [
             "reversed": ["Personal celebration", "Inner harmony", "Conflict with others", "Transition"]
         },
         "description": "The Four of Wands represents celebration, joy, harmony, and relaxation.",
-        "image": "four_of_wands.jpg"
+        "image": "minor_arcana_wands_4.png"
     },
     {
         "id": 26,
@@ -325,7 +325,7 @@ TAROT_DECK = [
             "reversed": ["Inner conflict", "Conflict avoidance", "Tension release", "Avoiding conflict"]
         },
         "description": "The Five of Wands represents conflict, disagreements, competition, and tension.",
-        "image": "five_of_wands.jpg"
+        "image": "minor_arcana_wands_5.png"
     },
     {
         "id": 27,
@@ -337,7 +337,7 @@ TAROT_DECK = [
             "reversed": ["Private achievement", "Personal definition of success", "Fall from grace", "Lack of recognition"]
         },
         "description": "The Six of Wands represents success, public recognition, progress, and self-confidence.",
-        "image": "six_of_wands.jpg"
+        "image": "minor_arcana_wands_6.png"
     },
     {
         "id": 28,
@@ -349,7 +349,7 @@ TAROT_DECK = [
             "reversed": ["Exhaustion", "Give up", "Burnt out", "Paranoia"]
         },
         "description": "The Seven of Wands represents challenge, competition, protection, and perseverance.",
-        "image": "seven_of_wands.jpg"
+        "image": "minor_arcana_wands_7.png"
     },
     {
         "id": 29,
@@ -361,7 +361,7 @@ TAROT_DECK = [
             "reversed": ["Delays", "Frustration", "Resisting change", "Internal alignment"]
         },
         "description": "The Eight of Wands represents movement, fast paced change, action, and alignment.",
-        "image": "eight_of_wands.jpg"
+        "image": "minor_arcana_wands_8.png"
     },
     {
         "id": 30,
@@ -373,7 +373,7 @@ TAROT_DECK = [
             "reversed": ["Inner resources", "Struggle", "Overwhelm", "Defensive"]
         },
         "description": "The Nine of Wands represents resilience, courage, persistence, and test of faith.",
-        "image": "nine_of_wands.jpg"
+        "image": "minor_arcana_wands_9.png"
     },
     {
         "id": 31,
@@ -385,7 +385,7 @@ TAROT_DECK = [
             "reversed": ["Doing it all", "Carrying the burden", "Delegation", "Release"]
         },
         "description": "The Ten of Wands represents burden, extra responsibility, hard work, and completion.",
-        "image": "ten_of_wands.jpg"
+        "image": "minor_arcana_wands_10.png"
     },
     {
         "id": 32,

@@ -126,21 +126,23 @@ class TarotApp {
     }
     
     positionCardInFan(cardElement, index, totalCards) {
-        // Calculate fan spread angle (adjust for visual appeal)
-        const maxAngle = 90; // Total spread angle in degrees
+        // Calculate fan spread angle (reduced density for easier selection)
+        const maxAngle = 120; // Total spread angle in degrees (increased for less density)
         const angleStep = maxAngle / (totalCards - 1);
         const angle = (index * angleStep) - (maxAngle / 2);
         
-        // Calculate position in fan
-        const radius = 250; // Distance from center
+        // Calculate position in fan - opposite perspective (as if dealing to user)
+        const radius = 300; // Distance from center (increased for less density)
         const x = Math.sin(angle * Math.PI / 180) * radius;
-        const y = Math.cos(angle * Math.PI / 180) * radius * 0.3; // Flatten the arc
+        const y = -Math.cos(angle * Math.PI / 180) * radius * 0.4; // Negative Y for opposite perspective, deeper arc
         
-        // Apply transform with rotation and position
+        // Apply transform with rotation and position (opposite rotation)
         cardElement.style.transform = `
             translate(${x}px, ${y}px) 
-            rotate(${angle}deg)
+            rotate(${-angle}deg)
         `;
+        
+        // Z-index to create proper layering (center cards on top)
         cardElement.style.zIndex = totalCards - Math.abs(index - totalCards/2);
     }
     
