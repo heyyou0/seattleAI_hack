@@ -338,6 +338,7 @@ body {
     color: var(--midnight);
     z-index: 1;
     position: relative;
+    border: none;
 }
 
 .card-front h6 {
