@@ -2,12 +2,21 @@ import os
 import json
 import requests
 import time
+from openai import OpenAI
 
-# Using Hugging Face Inference API for free AI-powered tarot readings
-# Using a smaller, more accessible model for text generation
-HF_API_URL = "https://api-inference.huggingface.co/models/gpt2"
+# Try OpenAI first, then fallback to Hugging Face
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+HF_API_KEY = os.environ.get("HF_API_KEY")
+
+if OPENAI_API_KEY:
+    openai_client = OpenAI(api_key=OPENAI_API_KEY)
+else:
+    openai_client = None
+
+# Using Hugging Face Inference API as backup
+HF_API_URL = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta"
 HF_HEADERS = {
-    "Authorization": f"Bearer {os.environ.get('HF_API_KEY', '')}",
+    "Authorization": f"Bearer {HF_API_KEY}",
     "Content-Type": "application/json"
 }
 
@@ -26,7 +35,7 @@ def query_huggingface(payload):
 
 def generate_tarot_reading(question, selected_cards, reading_type):
     """
-    Generate a personalized tarot reading using Hugging Face models or fallback to a structured reading.
+    Generate a personalized tarot reading using OpenAI, Hugging Face, or fallback to a structured reading.
     """
     try:
         # Prepare card information for the reading
@@ -46,9 +55,24 @@ def generate_tarot_reading(question, selected_cards, reading_type):
         
         context = reading_context.get(reading_type, reading_context["1-card"])
         
-        # Try Hugging Face first, but if it fails, provide a structured reading
-        hf_response = None
-        if HF_HEADERS["Authorization"] != "Bearer ":
+        # Try OpenAI first if available
+        if openai_client:
+            try:
+                response = openai_client.chat.completions.create(
+                    model="gpt-4o",  # the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
+                    messages=[
+                        {"role": "system", "content": "You are a wise, mystical tarot reader with deep knowledge of card meanings and symbolism. Provide insightful, spiritual readings that connect the card meanings to the user's question."},
+                        {"role": "user", "content": f"Question: '{question}'\n\nCards drawn:\n{cards_text}\n\n{context}\n\nProvide a mystical, insightful tarot reading that interprets these cards in relation to the question:"}
+                    ],
+                    max_tokens=400,
+                    temperature=0.8
+                )
+                return response.choices[0].message.content.strip()
+            except Exception as e:
+                print(f"OpenAI API Error: {str(e)}")
+        
+        # Try Hugging Face as backup
+        if HF_API_KEY:
             prompt = f"You are a wise tarot reader. For the question '{question}', interpret these cards:\n{cards_text}\n\n{context}\n\nProvide an insightful, mystical reading:"
             payload = {
                 "inputs": prompt,
@@ -61,12 +85,12 @@ def generate_tarot_reading(question, selected_cards, reading_type):
             }
             hf_response = query_huggingface(payload)
             print(f"HF Response: {hf_response}")  # Debug output
-        
-        # If Hugging Face works, use its response
-        if hf_response and isinstance(hf_response, list) and len(hf_response) > 0:
-            generated_text = hf_response[0].get("generated_text", "").strip()
-            if generated_text and len(generated_text) > 50:  # Only return if substantial content
-                return generated_text
+            
+            # If Hugging Face works, use its response
+            if hf_response and isinstance(hf_response, list) and len(hf_response) > 0:
+                generated_text = hf_response[0].get("generated_text", "").strip()
+                if generated_text and len(generated_text) > 50:  # Only return if substantial content
+                    return generated_text
         
         # Fallback: Generate a structured reading based on card meanings
         return generate_structured_reading(question, selected_cards, reading_type)

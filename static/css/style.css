@@ -343,13 +343,13 @@ body {
 }
 
 .card-front img {
-    width: calc(100% + 6px); /* Compensate for border width */
-    height: calc(100% + 6px); /* Compensate for border width */
+    width: calc(100% - 6px); /* Fill inside border area */
+    height: calc(100% - 6px); /* Fill inside border area */
     object-fit: cover;
-    border-radius: 12px; /* Match card border radius */
+    border-radius: 9px; /* Slightly smaller than card border */
     position: absolute;
-    top: -3px; /* Offset for border */
-    left: -3px; /* Offset for border */
+    top: 3px; /* Position inside border */
+    left: 3px; /* Position inside border */
     z-index: 1; /* Behind the title but above the background */
 }
 

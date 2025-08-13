@@ -617,7 +617,7 @@ TAROT_DECK = [
             "reversed": ["Inner clarity", "Re-thinking an idea", "Clouded judgement", "Confusion"]
         },
         "description": "The Ace of Swords represents new ideas, mental clarity, breakthrough, and communication.",
-        "image": "ace_of_swords.jpg"
+        "image": "minor_arcana_swords_ace.png"
     },
     {
         "id": 51,
@@ -629,7 +629,7 @@ TAROT_DECK = [
             "reversed": ["Indecision", "Confusion", "Information overload", "Overwhelming choices"]
         },
         "description": "The Two of Swords represents difficult decisions, weighing up options, an impasse, and avoidance.",
-        "image": "two_of_swords.jpg"
+        "image": "minor_arcana_swords_2.png"
     },
     {
         "id": 52,
@@ -641,7 +641,7 @@ TAROT_DECK = [
             "reversed": ["Negative self-talk", "Releasing pain", "Optimism", "Forgiveness"]
         },
         "description": "The Three of Swords represents heartbreak, emotional pain, sorrow, and grief.",
-        "image": "three_of_swords.jpg"
+        "image": "minor_arcana_swords_3.png"
     },
     {
         "id": 53,
@@ -653,7 +653,7 @@ TAROT_DECK = [
             "reversed": ["Exhaustion", "Burn-out", "Deep contemplation", "Stagnation"]
         },
         "description": "The Four of Swords represents rest, relaxation, meditation, and contemplation.",
-        "image": "four_of_swords.jpg"
+        "image": "minor_arcana_swords_4.png"
     },
     {
         "id": 54,
@@ -665,7 +665,7 @@ TAROT_DECK = [
             "reversed": ["Reconciliation", "Making amends", "Past resentment", "Revenge"]
         },
         "description": "The Five of Swords represents conflict, disagreements, competition, and defeat.",
-        "image": "five_of_swords.jpg"
+        "image": "minor_arcana_swords_5.png"
     },
     {
         "id": 55,
@@ -677,7 +677,7 @@ TAROT_DECK = [
             "reversed": ["Personal transition", "Resistance to change", "Unfinished business", "Seeking closure"]
         },
         "description": "The Six of Swords represents transition, change, rite of passage, and releasing baggage.",
-        "image": "six_of_swords.jpg"
+        "image": "minor_arcana_swords_6.png"
     },
     {
         "id": 56,
@@ -689,7 +689,7 @@ TAROT_DECK = [
             "reversed": ["Imposter syndrome", "Self-deceit", "Keeping secrets", "Getting away with it"]
         },
         "description": "The Seven of Swords represents betrayal, deception, getting away with something, and acting strategically.",
-        "image": "seven_of_swords.jpg"
+        "image": "minor_arcana_swords_7.png"
     },
     {
         "id": 57,
@@ -701,7 +701,7 @@ TAROT_DECK = [
             "reversed": ["Self-limiting beliefs", "Inner critic", "Releasing negative thoughts", "Open to new perspectives"]
         },
         "description": "The Eight of Swords represents negative thoughts, self-imposed restriction, imprisonment, and victim mentality.",
-        "image": "eight_of_swords.jpg"
+        "image": "minor_arcana_swords_8.png"
     },
     {
         "id": 58,
@@ -713,7 +713,7 @@ TAROT_DECK = [
             "reversed": ["Inner turmoil", "Deep-seated fears", "Secrets", "Releasing worry"]
         },
         "description": "The Nine of Swords represents anxiety, worry, fear, and depression.",
-        "image": "nine_of_swords.jpg"
+        "image": "minor_arcana_swords_9.png"
     },
     {
         "id": 59,
@@ -725,7 +725,7 @@ TAROT_DECK = [
             "reversed": ["Recovery", "Regeneration", "Resisting an inevitable end", "Surviving disaster"]
         },
         "description": "The Ten of Swords represents painful endings, deep wounds, betrayal, and loss.",
-        "image": "ten_of_swords.jpg"
+        "image": "minor_arcana_swords_10.png"
     },
     {
         "id": 60,
