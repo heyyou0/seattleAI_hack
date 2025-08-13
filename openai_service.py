@@ -21,9 +21,12 @@ HF_HEADERS = {
 }
 
 def query_huggingface(payload):
-    """Query Hugging Face Inference API"""
+    """
+    Query Hugging Face Inference API with retry logic
+    """
     try:
-        response = requests.post(HF_API_URL, headers=HF_HEADERS, json=payload, timeout=30)
+        response = requests.post(HF_API_URL, headers=HF_HEADERS, json=payload, timeout=60)
+        print(f"HF API Status: {response.status_code}")
         if response.status_code == 200:
             return response.json()
         else:
@@ -32,6 +35,67 @@ def query_huggingface(payload):
     except Exception as e:
         print(f"HF API Request Error: {str(e)}")
         return None
+
+def generate_structured_reading(question, selected_cards, reading_type):
+    """
+    Generate a structured tarot reading based on card meanings when AI APIs are unavailable
+    """
+    try:
+        reading_parts = []
+        
+        # Reading introduction based on type
+        intro_messages = {
+            "1-card": f"For your question '{question}', the cards reveal:",
+            "3-card": f"Your three-card reading for '{question}' shows the past, present, and future influences:",
+            "celtic-cross": f"The Celtic Cross spread for your question '{question}' provides deep insights:"
+        }
+        
+        reading_parts.append(intro_messages.get(reading_type, intro_messages["1-card"]))
+        reading_parts.append("")
+        
+        # Process each card
+        for i, card in enumerate(selected_cards):
+            card_name = card.get("name", "Unknown Card")
+            keywords = card.get("keywords", [])
+            meanings = card.get("meanings", {})
+            description = card.get("description", "")
+            
+            # Position context for different reading types
+            if reading_type == "3-card":
+                positions = ["Past", "Present", "Future"]
+                position = positions[i] if i < len(positions) else f"Card {i+1}"
+            elif reading_type == "celtic-cross":
+                positions = ["Present", "Challenge", "Past", "Future", "Crown", "Foundation", 
+                           "Your Approach", "External Influences", "Hopes/Fears", "Outcome"]
+                position = positions[i] if i < len(positions) else f"Position {i+1}"
+            else:
+                position = "Your Card"
+            
+            # Build card interpretation
+            card_text = f"**{position}: {card_name}**"
+            reading_parts.append(card_text)
+            
+            if description:
+                reading_parts.append(description)
+            
+            if keywords:
+                reading_parts.append(f"Key themes: {', '.join(keywords[:4])}")
+            
+            # Add upright meanings if available
+            upright = meanings.get("upright", [])
+            if upright:
+                reading_parts.append(f"This card suggests: {', '.join(upright[:3])}")
+            
+            reading_parts.append("")
+        
+        # Closing message
+        reading_parts.append("✨ The cards have spoken. Trust your intuition as you move forward on your path.")
+        
+        return "\n".join(reading_parts)
+        
+    except Exception as e:
+        print(f"Error in generate_structured_reading: {str(e)}")
+        return "The cosmic energies are shifting... Please try your reading again. The cards are eager to share their wisdom with you."
 
 def generate_tarot_reading(question, selected_cards, reading_type):
     """
@@ -98,66 +162,3 @@ def generate_tarot_reading(question, selected_cards, reading_type):
     except Exception as e:
         print(f"Error in generate_tarot_reading: {str(e)}")
         return generate_structured_reading(question, selected_cards, reading_type)
-
-def generate_structured_reading(question, selected_cards, reading_type):
-    """
-    Generate a structured tarot reading based on card meanings when AI is unavailable
-    """
-    try:
-        reading_parts = []
-        
-        # Add greeting
-        reading_parts.append(f"🔮 **Your {reading_type.replace('-', ' ').title()} Reading**\n")
-        reading_parts.append(f"**Your Question:** {question}\n")
-        
-        # Interpret each card
-        for i, card in enumerate(selected_cards):
-            if reading_type == "3-card":
-                positions = ["Past", "Present", "Future"]
-                position = positions[i] if i < len(positions) else f"Card {i+1}"
-            elif reading_type == "celtic-cross":
-                positions = ["Present Situation", "Challenge/Cross", "Distant Past", "Recent Past", 
-                           "Possible Outcome", "Near Future", "Your Approach", "External Influences", 
-                           "Hopes and Fears", "Final Outcome"]
-                position = positions[i] if i < len(positions) else f"Card {i+1}"
-            else:
-                position = "Your Card"
-            
-            reading_parts.append(f"**{position}: {card['name']}**")
-            reading_parts.append(f"{card['description']}")
-            
-            # Add relevant meaning based on context
-            if card['meanings']['upright']:
-                reading_parts.append(f"*Key meanings:* {', '.join(card['meanings']['upright'])}")
-            
-            reading_parts.append("")
-        
-        # Add guidance section
-        reading_parts.append("**✨ Guidance and Reflection:**")
-        
-        # Generate contextual guidance based on the cards
-        if len(selected_cards) == 1:
-            card = selected_cards[0]
-            guidance = f"The {card['name']} appears in response to your question about {question.lower()}. "
-            guidance += f"This card suggests focusing on {', '.join(card['keywords'][:2])}. "
-            guidance += "Consider how these themes relate to your current situation and what steps you might take to align with this energy."
-        
-        elif len(selected_cards) == 3:
-            guidance = "Your three-card spread reveals a journey through time. "
-            guidance += f"The past influence of {selected_cards[0]['name']} has shaped your current situation represented by {selected_cards[1]['name']}. "
-            guidance += f"Moving forward, {selected_cards[2]['name']} suggests the energy and opportunities available to you. "
-            guidance += "Reflect on how these connected themes can guide your decision-making."
-        
-        else:
-            card_names = [card['name'] for card in selected_cards[:3]]
-            guidance = f"The cards {', '.join(card_names)} and others in your spread create a rich tapestry of insight. "
-            guidance += "Each card contributes to the overall message about your question. "
-            guidance += "Look for patterns and connections between the card meanings to understand the deeper guidance being offered."
-        
-        reading_parts.append(guidance)
-        reading_parts.append("\n*Trust in the wisdom of the cards and your own intuition.*")
-        
-        return "\n".join(reading_parts)
-        
-    except Exception as e:
-        return f"The cosmic energies are shifting... Please try your reading again. The cards are eager to share their wisdom with you."

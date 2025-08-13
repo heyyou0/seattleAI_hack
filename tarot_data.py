@@ -118,7 +118,7 @@ TAROT_DECK = [
             "upright": ["Soul searching", "Introspection", "Inner guidance", "Solitude"],
             "reversed": ["Isolation", "Loneliness", "Withdrawal", "Paranoia"]
         },
-        "description": "The Hermit represents soul searching, introspection, inner guidance, and solitude.",
+        "description": "The Hermit represents soul , introspection, inner guidance, and solitude.",
         "image": "major_arcana_hermit.png"
     },
     {
