@@ -328,16 +328,16 @@ body {
 }
 
 .card-front {
-    background: linear-gradient(145deg, var(--cream-white), var(--lavender));
+    background: transparent; /* Remove background to let image show fully */
     transform: rotateY(180deg);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0; /* Remove padding to allow full image coverage */
+    padding: 0;
     color: var(--midnight);
     z-index: 1;
-    position: relative; /* Ensure positioning context for absolute images */
+    position: relative;
 }
 
 .card-front h6 {

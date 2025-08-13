@@ -221,6 +221,7 @@ class TarotApp {
         const targetX = startX + (selectionIndex * spacing);
         const targetY = 180; // Distance below the fan
         
+        // Remove rotation and keep cards straight when selected
         cardElement.style.transform = `
             translate(${targetX}px, ${targetY}px) 
             rotate(0deg) 
