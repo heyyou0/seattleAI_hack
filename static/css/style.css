@@ -233,32 +233,31 @@ body {
 }
 
 /* Card Fan Layout */
+/* --- MODIFIED: U-shape fan layout start --- */
 .card-grid {
     display: flex;
     justify-content: center;
-    align-items: center;
-    max-width: 1600px;
+    align-items: flex-end; /* Align cards to the bottom for the fan effect */
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 60px 20px;
-    min-height: 500px;
+    padding: 40px 20px;
+    min-height: 400px;
     position: relative;
     perspective: 1000px;
-    overflow: visible;
 }
 
 .card-fan-container {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: visible;
 }
 
 @media (min-width: 768px) {
     .card-fan-container {
-        height: 450px;
+        height: 350px;
     }
 }
 
@@ -276,10 +275,9 @@ body {
 }
 
 .tarot-card:hover {
-    transform: translateY(-15px) scale(1.15) !important;
+    transform: translateY(10px) scale(1.1); /* Modified to move down, not up */
     box-shadow: 0 20px 40px rgba(212, 175, 55, 0.6);
-    z-index: 1000 !important;
-    transition: all 0.3s ease;
+    z-index: 100;
 }
 
 .tarot-card.selected {
@@ -298,6 +296,19 @@ body {
         height: 150px;
     }
 }
+
+/* Specific card rotations for the U-shape fan effect (assuming 10 cards) */
+.tarot-card:nth-child(1) { transform: rotate(-30deg); }
+.tarot-card:nth-child(2) { transform: rotate(-22deg); }
+.tarot-card:nth-child(3) { transform: rotate(-14deg); }
+.tarot-card:nth-child(4) { transform: rotate(-6deg); }
+.tarot-card:nth-child(5) { transform: rotate(2deg); }
+.tarot-card:nth-child(6) { transform: rotate(10deg); }
+.tarot-card:nth-child(7) { transform: rotate(18deg); }
+.tarot-card:nth-child(8) { transform: rotate(26deg); }
+.tarot-card:nth-child(9) { transform: rotate(34deg); }
+.tarot-card:nth-child(10) { transform: rotate(42deg); }
+/* --- MODIFIED: U-shape fan layout end --- */
 
 .card-face {
     position: absolute;
@@ -345,7 +356,7 @@ body {
     border-radius: 4px;
 }
 
-/* === MODIFIED CODE STARTS HERE === */
+/* --- MODIFIED: Card image fill fix --- */
 .card-front img {
     /* Use 'inset' to perfectly position and size the image within the border */
     position: absolute;
@@ -353,8 +364,10 @@ body {
     object-fit: cover;
     border-radius: 9px; /* The correct radius (12px - 3px border) */
     z-index: 1; /* Behind the title but above the background */
+    width: calc(100% - 6px); /* Ensure it's fully inside the border */
+    height: calc(100% - 6px);
 }
-/* === MODIFIED CODE ENDS HERE === */
+/* --- MODIFIED: Card image fill fix --- */
 
 /* Card Image Placeholder */
 .card-image-placeholder {
