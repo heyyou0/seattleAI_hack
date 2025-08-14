@@ -55,6 +55,17 @@ class TarotApp {
                 this.handleReadingTypeChange(e.target.value);
             });
         });
+
+        // Event listener for the dismiss button on the error alert
+        const errorAlert = document.getElementById('error-alert');
+        if (errorAlert) {
+            const closeButton = errorAlert.querySelector('.btn-close');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    errorAlert.classList.add('d-none');
+                });
+            }
+        }
     }
 
     setupReadingTypeSelection() {
@@ -334,16 +345,18 @@ class TarotApp {
 
     startCardSelection() {
         const question = document.getElementById('user-question').value.trim();
+        const errorAlert = document.getElementById('error-alert');
 
-        // Instead of alert, use a custom message box
         if (!question) {
-            const msgBox = document.createElement('div');
-            msgBox.className = 'message-box';
-            msgBox.textContent = 'Please enter your question before beginning the reading.';
-            document.body.appendChild(msgBox);
-            setTimeout(() => msgBox.remove(), 3000);
+            // Show the Bootstrap error alert
+            errorAlert.classList.add('show');
+            errorAlert.classList.remove('d-none');
             return;
         }
+
+        // Hide the error alert if it was showing
+        errorAlert.classList.remove('show');
+        errorAlert.classList.add('d-none');
 
         // Hide question section and show card selection
         document.getElementById('question-section').classList.add('d-none');
@@ -359,11 +372,8 @@ class TarotApp {
         const question = document.getElementById('user-question').value.trim();
 
         if (!question || this.selectedCards.length === 0) {
-            const msgBox = document.createElement('div');
-            msgBox.className = 'message-box';
-            msgBox.textContent = 'Please enter a question and select cards.';
-            document.body.appendChild(msgBox);
-            setTimeout(() => msgBox.remove(), 3000);
+            // An alert is still good here for a double-check
+            alert('Please enter a question and select cards.');
             return;
         }
 
@@ -436,7 +446,6 @@ class TarotApp {
                         position: absolute;
                         top: 0; left: 0;
                     ">
-                        <!-- back SVG -->
                         <svg width="100%" height="100%" viewBox="0 0 80 120" fill="none">
                             <rect width="80" height="120" rx="12" fill="#2D1B69" stroke="#8B5A2B" stroke-width="2"/>
                             <circle cx="40" cy="30" r="10" fill="#C9A96E"/>
@@ -543,6 +552,13 @@ class TarotApp {
             btn.classList.remove('active')
         );
         document.querySelector('label[for="one-card"]').classList.add('active');
+
+        // Hide the error alert
+        const errorAlert = document.getElementById('error-alert');
+        if (errorAlert) {
+            errorAlert.classList.add('d-none');
+            errorAlert.classList.remove('show');
+        }
 
         // Reset card grid and regenerate to fix positioning bug
         document.querySelectorAll('.tarot-card').forEach(card => {
