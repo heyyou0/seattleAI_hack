@@ -1,169 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystic Tarot - AI-Powered Divination</title>
-    
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystic Tarot - AI-Powered Divination</title>
+    
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="mystical-bg">
-        <!-- Header -->
-        <header class="mystical-header text-center py-4">
-            <div class="container">
-                <h1 class="mystical-title">
-                    <i class="fas fa-moon me-3"></i>
-                    Mystic Tarot
-                    <i class="fas fa-star ms-3"></i>
-                </h1>
-                <p class="mystical-subtitle">AI-Powered Divination & Guidance</p>
-            </div>
-        </header>
+    <div class="mystical-bg">
+                <header class="mystical-header text-center py-4">
+            <div class="container">
+                <h1 class="mystical-title">
+                    <i class="fas fa-moon me-3"></i>
+                    Mystic Tarot
+                    <i class="fas fa-star ms-3"></i>
+                </h1>
+                <p class="mystical-subtitle">AI-Powered Divination & Guidance</p>
+            </div>
+        </header>
 
-        <!-- Main Content -->
-        <main class="container py-5">
-            <!-- Question & Reading Type Section -->
-            <div id="question-section" class="mystical-card mx-auto mb-5">
-                <div class="card-body text-center">
-                    <h2 class="mystical-section-title mb-4">
-                        <i class="fas fa-question-circle me-2"></i>
-                        Ask the Universe
-                    </h2>
-                    
-                    <div class="mb-4">
-                        <label for="user-question" class="form-label mystical-label">What guidance do you seek?</label>
-                        <textarea id="user-question" class="form-control mystical-input" rows="3" 
-                            placeholder="Enter your question about love, career, life direction, or any matter of the heart..."></textarea>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="form-label mystical-label">Choose Your Reading Type</label>
-                        <div class="d-flex justify-content-center gap-3 flex-wrap">
-                            <div class="reading-type-option">
-                                <input type="radio" id="one-card" name="reading-type" value="1-card" class="d-none" checked>
-                                <label for="one-card" class="mystical-button reading-type-btn active">
-                                    <i class="fas fa-eye me-2"></i>
-                                    One Card<br>
-                                    <small>Quick Insight</small>
-                                </label>
-                            </div>
-                            <div class="reading-type-option">
-                                <input type="radio" id="three-card" name="reading-type" value="3-card" class="d-none">
-                                <label for="three-card" class="mystical-button reading-type-btn">
-                                    <i class="fas fa-history me-2"></i>
-                                    Three Cards<br>
-                                    <small>Past, Present, Future</small>
-                                </label>
-                            </div>
-                            <div class="reading-type-option">
-                                <input type="radio" id="celtic-cross" name="reading-type" value="celtic-cross" class="d-none">
-                                <label for="celtic-cross" class="mystical-button reading-type-btn">
-                                    <i class="fas fa-plus me-2"></i>
-                                    Celtic Cross<br>
-                                    <small>Deep Insight</small>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button id="begin-reading-btn" class="mystical-button primary-btn">
-                        <i class="fas fa-magic me-2"></i>
-                        Begin Your Reading
-                    </button>
-                </div>
-            </div>
+                <main class="container py-5">
+                        <div id="question-section" class="mystical-card mx-auto mb-5">
+                <div class="card-body text-center">
+                    <h2 class="mystical-section-title mb-4">
+                        <i class="fas fa-question-circle me-2"></i>
+                        Ask the Universe
+                    </h2>
+                    
+                    <div class="mb-4">
+                        <label for="user-question" class="form-label mystical-label">What guidance do you seek?</label>
+                        <textarea id="user-question" class="form-control mystical-input" rows="3" 
+                            placeholder="Enter your question about love, career, life direction, or any matter of the heart..."></textarea>
+                    </div>
 
-            <!-- Card Selection Section -->
-            <div id="card-selection-section" class="d-none">
-                <div class="text-center mb-4">
-                    <h2 class="mystical-section-title">
-                        <i class="fas fa-hand-pointer me-2"></i>
-                        Choose Your Cards
-                    </h2>
-                    <p class="mystical-text" id="selection-instruction">Select 1 card from the deck below</p>
-                    <div class="selection-counter">
-                        <span id="selected-count">0</span> / <span id="required-count">1</span> selected
-                    </div>
-                </div>
+                                        <div id="question-alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                        Please enter a question to begin your reading.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label mystical-label">Choose Your Reading Type</label>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <div class="reading-type-option">
+                                <input type="radio" id="one-card" name="reading-type" value="1-card" class="d-none" checked>
+                                <label for="one-card" class="mystical-button reading-type-btn active">
+                                    <i class="fas fa-eye me-2"></i>
+                                    One Card<br>
+                                    <small>Quick Insight</small>
+                                </label>
+                            </div>
+                            <div class="reading-type-option">
+                                <input type="radio" id="three-card" name="reading-type" value="3-card" class="d-none">
+                                <label for="three-card" class="mystical-button reading-type-btn">
+                                    <i class="fas fa-history me-2"></i>
+                                    Three Cards<br>
+                                    <small>Past, Present, Future</small>
+                                </label>
+                            </div>
+                            <div class="reading-type-option">
+                                <input type="radio" id="celtic-cross" name="reading-type" value="celtic-cross" class="d-none">
+                                <label for="celtic-cross" class="mystical-button reading-type-btn">
+                                    <i class="fas fa-plus me-2"></i>
+                                    Celtic Cross<br>
+                                    <small>Deep Insight</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="begin-reading-btn" class="mystical-button primary-btn">
+                        <i class="fas fa-magic me-2"></i>
+                        Begin Your Reading
+                    </button>
+                </div>
+            </div>
+
+                        <div id="card-selection-section" class="d-none">
+                <div class="text-center mb-4">
+                    <h2 class="mystical-section-title">
+                        <i class="fas fa-hand-pointer me-2"></i>
+                        Choose Your Cards
+                    </h2>
+                    <p class="mystical-text" id="selection-instruction">Select 1 card from the deck below</p>
+                    <div class="selection-counter">
+                        <span id="selected-count">0</span> / <span id="required-count">1</span> selected
+                    </div>
+                </div>
+                
+                                <div id="card-grid" class="card-grid mb-4">
+                                    </div>
+                
+                <div class="text-center">
+                    <button id="reveal-reading-btn" class="mystical-button primary-btn d-none">
+                        <i class="fas fa-crystal-ball me-2"></i>
+                        Reveal Your Reading
+                    </button>
+                </div>
+            </div>
+
+                        <div id="reading-section" class="d-none">
+                <div class="mystical-card mx-auto mb-4">
+                    <div class="card-body">
+                        <h2 class="mystical-section-title text-center mb-4">
+                            <i class="fas fa-crystal-ball me-2"></i>
+                            Your Reading
+                        </h2>
+                        
+                                                <div id="selected-cards-display" class="selected-cards-display mb-4">
+                                                    </div>
+                        
+                                                <div id="ai-reading" class="ai-reading">
+                                                    </div>
+                        
+                        <div class="text-center mt-4">
+                            <button id="new-reading-btn" class="mystical-button secondary-btn">
+                                <i class="fas fa-redo me-2"></i>
+                                Start New Reading
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                        <div id="loading-overlay" class="loading-overlay d-none">
+                <div class="loading-content">
+                    <div class="mystical-spinner"></div>
+                    <p class="loading-text mt-3">Consulting the cosmic energies...</p>
+                </div>
+            </div>
+        </main>
+
+                <footer class="mystical-footer text-center py-4 mt-5">
+            <div class="container">
+                <p class="mystical-text mb-0">
+                    <i class="fas fa-star me-2"></i>
+                    Trust in the wisdom of the cards
+                    <i class="fas fa-star ms-2"></i>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get references to all the elements you'll need
+            const beginReadingBtn = document.getElementById('begin-reading-btn');
+            const userQuestionTextarea = document.getElementById('user-question');
+            const questionAlert = document.getElementById('question-alert');
+            const questionSection = document.getElementById('question-section');
+            const cardSelectionSection = document.getElementById('card-selection-section');
+            const readingSection = document.getElementById('reading-section');
+            const newReadingBtn = document.getElementById('new-reading-btn');
+            const readingTypeBtns = document.querySelectorAll('.reading-type-btn');
+            const cardGrid = document.getElementById('card-grid');
+            const selectionInstruction = document.getElementById('selection-instruction');
+            const requiredCountEl = document.getElementById('required-count');
+            const selectedCountEl = document.getElementById('selected-count');
+            const revealReadingBtn = document.getElementById('reveal-reading-btn');
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const selectedCardsDisplay = document.getElementById('selected-cards-display');
+            const aiReadingDiv = document.getElementById('ai-reading');
+
+            let requiredCards = 1;
+            let selectedCards = [];
+
+            // A placeholder list of tarot cards (replace with a real list)
+            const tarotCards = [
+                "The Fool", "The Magician", "The High Priestess", "The Empress", "The Emperor",
+                "The Hierophant", "The Lovers", "The Chariot", "Strength", "The Hermit",
+                "Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance",
+                "The Devil", "The Tower", "The Star", "The Moon", "The Sun",
+                "Judgement", "The World"
+            ];
+        
+            // Helper function to shuffle an array
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            // --- Event Listeners ---
+
+            // "Begin Reading" button click
+            beginReadingBtn.addEventListener('click', function() {
+                const userQuestion = userQuestionTextarea.value.trim();
+
+                if (userQuestion === '') {
+                    // Show the error alert
+                    questionAlert.classList.remove('d-none');
+                } else {
+                    // Hide the error alert if it was showing
+                    questionAlert.classList.add('d-none');
+                    // Get selected reading type
+                    const selectedType = document.querySelector('input[name="reading-type"]:checked').value;
+                    
+                    // Determine how many cards to select based on the reading type
+                    if (selectedType === '1-card') {
+                        requiredCards = 1;
+                    } else if (selectedType === '3-card') {
+                        requiredCards = 3;
+                    } else if (selectedType === 'celtic-cross') {
+                        requiredCards = 10;
+                    }
+
+                    selectionInstruction.textContent = `Select ${requiredCards} card${requiredCards > 1 ? 's' : ''} from the deck below.`;
+                    requiredCountEl.textContent = requiredCards;
+                    selectedCountEl.textContent = 0;
+                    selectedCards = [];
+                    revealReadingBtn.classList.add('d-none');
+                    
+                    // Generate card grid
+                    generateCardGrid();
+                    
+                    // Show card selection, hide question section
+                    questionSection.classList.add('d-none');
+                    cardSelectionSection.classList.remove('d-none');
+                }
+            });
+
+            // Reading type button clicks
+            readingTypeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    readingTypeBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Card grid click handler (event delegation)
+            cardGrid.addEventListener('click', function(event) {
+                const card = event.target.closest('.tarot-card');
+                if (!card || card.classList.contains('selected')) {
+                    return; // Ignore clicks on already selected or non-card elements
+                }
+
+                if (selectedCards.length < requiredCards) {
+                    card.classList.add('selected');
+                    const cardIndex = parseInt(card.dataset.cardIndex);
+                    selectedCards.push(tarotCards[cardIndex]);
+                    selectedCountEl.textContent = selectedCards.length;
+                    
+                    if (selectedCards.length === requiredCards) {
+                        revealReadingBtn.classList.remove('d-none');
+                    }
+                }
+            });
+
+            // "Reveal Reading" button click
+            revealReadingBtn.addEventListener('click', function() {
+                // Show loading screen
+                loadingOverlay.classList.remove('d-none');
+
+                // Simulate AI processing delay
+                setTimeout(() => {
+                    // Hide loading screen
+                    loadingOverlay.classList.add('d-none');
+                    
+                    // Generate and display reading results
+                    displayReadingResults();
+                    
+                    // Show reading section, hide card selection
+                    cardSelectionSection.classList.add('d-none');
+                    readingSection.classList.remove('d-none');
+                }, 2000); // 2 second delay
+            });
+
+            // "Start New Reading" button click
+            newReadingBtn.addEventListener('click', function() {
+                // Reset to initial state
+                readingSection.classList.add('d-none');
+                questionSection.classList.remove('d-none');
+                userQuestionTextarea.value = '';
+                questionAlert.classList.add('d-none'); // Ensure alert is hidden
+            });
+
+            // --- Functionality ---
+            
+            function generateCardGrid() {
+                cardGrid.innerHTML = ''; // Clear previous cards
+                const shuffledCards = [...tarotCards];
+                shuffleArray(shuffledCards);
+
+                for (let i = 0; i < 22; i++) { // Generate a fixed number of cards for simplicity
+                    const cardElement = document.createElement('div');
+                    cardElement.classList.add('tarot-card');
+                    // Store the original card name in a data attribute
+                    cardElement.dataset.cardIndex = tarotCards.indexOf(shuffledCards[i]);
+                    cardGrid.appendChild(cardElement);
+                }
+            }
+
+            function displayReadingResults() {
+                selectedCardsDisplay.innerHTML = '';
+                aiReadingDiv.innerHTML = '';
                 
-                <!-- Card Grid -->
-                <div id="card-grid" class="card-grid mb-4">
-                    <!-- Cards will be dynamically generated here -->
-                </div>
-                
-                <div class="text-center">
-                    <button id="reveal-reading-btn" class="mystical-button primary-btn d-none">
-                        <i class="fas fa-crystal-ball me-2"></i>
-                        Reveal Your Reading
-                    </button>
-                </div>
-            </div>
+                // Display the selected cards with their names
+                selectedCards.forEach(cardName => {
+                    const cardResult = document.createElement('div');
+                    cardResult.classList.add('selected-card-result');
+                    const cardImage = document.createElement('div');
+                    cardImage.classList.add('tarot-card', 'revealed');
+                    cardResult.appendChild(cardImage);
 
-            <!-- Reading Results Section -->
-            <div id="reading-section" class="d-none">
-                <div class="mystical-card mx-auto mb-4">
-                    <div class="card-body">
-                        <h2 class="mystical-section-title text-center mb-4">
-                            <i class="fas fa-crystal-ball me-2"></i>
-                            Your Reading
-                        </h2>
-                        
-                        <!-- Selected Cards Display -->
-                        <div id="selected-cards-display" class="selected-cards-display mb-4">
-                            <!-- Selected cards will be displayed here -->
-                        </div>
-                        
-                        <!-- AI Reading -->
-                        <div id="ai-reading" class="ai-reading">
-                            <!-- AI-generated reading will appear here -->
-                        </div>
-                        
-                        <div class="text-center mt-4">
-                            <button id="new-reading-btn" class="mystical-button secondary-btn">
-                                <i class="fas fa-redo me-2"></i>
-                                Start New Reading
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    const cardNameEl = document.createElement('p');
+                    cardNameEl.classList.add('card-name');
+                    cardNameEl.textContent = cardName;
+                    cardResult.appendChild(cardNameEl);
+                    
+                    selectedCardsDisplay.appendChild(cardResult);
+                });
 
-            <!-- Loading Overlay -->
-            <div id="loading-overlay" class="loading-overlay d-none">
-                <div class="loading-content">
-                    <div class="mystical-spinner"></div>
-                    <p class="loading-text mt-3">Consulting the cosmic energies...</p>
-                </div>
-            </div>
-        </main>
+                // Generate a placeholder AI reading
+                const aiResponse = document.createElement('p');
+                aiResponse.classList.add('mystical-text');
+                aiResponse.innerHTML = `You have drawn the cards: <strong>${selectedCards.join(', ')}</strong>.<br><br>The energies suggest that you are on a path of self-discovery and transformation. The universe is guiding you to listen to your intuition and trust your inner wisdom. Stay open to new opportunities and embrace change. This is a time of growth and profound insight.`;
+                aiReadingDiv.appendChild(aiResponse);
+            }
 
-        <!-- Footer -->
-        <footer class="mystical-footer text-center py-4 mt-5">
-            <div class="container">
-                <p class="mystical-text mb-0">
-                    <i class="fas fa-star me-2"></i>
-                    Trust in the wisdom of the cards
-                    <i class="fas fa-star ms-2"></i>
-                </p>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JavaScript -->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        });
+    </script>
 </body>
 </html>
