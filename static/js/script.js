@@ -110,46 +110,51 @@ class TarotApp {
     generateCardGrid() {
         const cardGrid = document.getElementById('card-grid');
         cardGrid.innerHTML = '';
-        
-        // Create fan container
+
         const fanContainer = document.createElement('div');
         fanContainer.className = 'card-fan-container';
-        
-        // Generate 78 cards (full tarot deck) in fan layout
+
         for (let i = 0; i < 78; i++) {
             const cardElement = this.createCardElement(i);
-            this.positionCardInFan(cardElement, i, 78);
+            this.positionCardInUShape(cardElement, i, 78);
             fanContainer.appendChild(cardElement);
         }
-        
+
         cardGrid.appendChild(fanContainer);
     }
-    
-    positionCardInFan(cardElement, index, totalCards) {
-        // Create a proper U-shaped fan like a professional tarot reader
-        const maxAngle = 160; // Wide spread for proper U-shape
+
+    positionCardInUShape(cardElement, index, totalCards) {
+        // U자형 각도 범위 (넓게 펼침)
+        const maxAngle = 160;
         const angleStep = maxAngle / (totalCards - 1);
-        const angle = (index * angleStep) - (maxAngle / 2);
-        
-        // Calculate position for U-shaped fan (arc curves toward user)
-        const radius = 320; // Increased radius for better spacing
+
+        // 중심 기준 offset, 방향 반전 (받는 사람 시점)
+        const angle = ((index * angleStep) - (maxAngle / 2)) * -1;
+
+        // 곡선 깊이와 폭 조절
+        const radius = 350;
+        const curveDepth = 0.6; // U자 깊이 비율
         const x = Math.sin(angle * Math.PI / 180) * radius;
-        const y = Math.cos(angle * Math.PI / 180) * radius * 0.4; // Flatter U-shape
-        
-        // Cards rotate to follow the fan arc naturally
+        const y = Math.pow(Math.cos(angle * Math.PI / 180), 1.5) * radius * curveDepth;
+
+        // 회전 각도 (안쪽으로 기울이기)
+        const tilt = angle * 0.7;
+
+        // 카드 위치 적용
         cardElement.style.transform = `
-            translate(${x}px, ${y}px) 
-            rotate(${angle * 0.7}deg)
+            translate(${x}px, ${y}px)
+            rotate(${tilt}deg)
         `;
-        
-        // Z-index for proper layering (center cards slightly on top, but overlapping naturally)
-        const centerDistance = Math.abs(index - totalCards/2);
+
+        // z-index → 중앙 카드가 가장 위
+        const centerDistance = Math.abs(index - totalCards / 2);
         cardElement.style.zIndex = Math.floor(totalCards - centerDistance);
-        
-        // Add slight random offset for more natural look
-        const randomOffset = (Math.random() - 0.5) * 2;
+
+        // 자연스러운 느낌을 위해 미세한 Y축 흔들림
+        const randomOffset = (Math.random() - 0.5) * 3;
         cardElement.style.transform += ` translateY(${randomOffset}px)`;
     }
+
     
     createCardElement(cardId) {
         const cardDiv = document.createElement('div');

@@ -1,103 +1,103 @@
-import os, json, time, requests
+import os
+import json
+import time
+import requests
 
 # API 토큰을 환경 변수에서 가져옵니다.
 HF_TOKEN = os.environ.get("HF_API_KEY") or os.environ.get("HF_TOKEN")
-HF_MODEL = "HuggingFaceH4/zephyr-7b-beta"
-HF_URL = f"https://api-inference.huggingface.co/models/{HF_MODEL}"
-HF_HEADERS = {
-    "Authorization": f"Bearer {HF_TOKEN}",
-    "Content-Type": "application/json"
-}
+# Fireworks AI에서 직접 제공하는 모델 경로로 변경했습니다.
+HF_MODEL = "openai/gpt-oss-120b:fireworks-ai"
+HF_URL = "https://router.huggingface.co/v1/chat/completions"
 
 
-def hf_generate(prompt, max_tries=6):
-    """Hugging Face Inference API를 호출하고, 일반적인 응답 형식을 처리합니다."""
-    # 디버깅을 위해 토큰 상태를 출력합니다.
+def hf_generate(messages, max_tries=6):
+    """
+    Hugging Face Chat Completions API를 호출하고, 일반적인 응답 형식을 처리합니다.
+    Calls the Hugging Face Chat Completions API and handles the standard response format.
+    """
+    # Verify that the token is set and the headers are correctly formatted.
     if not HF_TOKEN:
-        print("HF_TOKEN is not set. API call will fail.")
+        print(
+            "Error: HF_TOKEN is not set. Please set the 'HF_API_KEY' or 'HF_TOKEN' environment variable."
+        )
         return None
 
-    payload = {
-        "inputs": prompt,
-        "parameters": {
-            "max_new_tokens": 300,
-            "temperature": 0.8,
-            "do_sample": True,
-            "return_full_text": False
-        }
+    HF_HEADERS = {
+        "Authorization": f"Bearer {HF_TOKEN}",
+        "Content-Type": "application/json"
     }
-    backoff = 2
+
+    # API에 전달할 페이로드 구성.
+    # The 'parameters' field has been removed as per the API's error message.
+    # Construct the payload for the API.
+    payload = {
+        "model": HF_MODEL,
+        "messages": messages,
+    }
+
+    # 디버깅을 위해 전송될 페이로드를 출력합니다.
+    # For debugging, print the payload that will be sent.
+    print("\n--- Request Payload ---")
+    print(json.dumps(payload, indent=2, ensure_ascii=False))
+    print("-----------------------\n")
+
+    backoff_time = 2
     for i in range(max_tries):
         try:
-            print(f"Attempting to call HF API (try {i+1})...")
+            print(f"Attempting to call HF Chat Completions API (try {i+1})...")
             r = requests.post(HF_URL,
                               headers=HF_HEADERS,
                               json=payload,
                               timeout=60)
-        except Exception as e:
-            if i == max_tries - 1:
+
+            # Raise an HTTPError for bad responses (4xx or 5xx)
+            r.raise_for_status()
+
+            # 응답 성공 (200 OK)
+            # 200 OK: Response was successful.
+            data = r.json()
+            print("HF Chat Completions API call successful.")
+            return data["choices"][0]["message"]["content"].strip()
+
+        except requests.exceptions.HTTPError as e:
+            status_code = e.response.status_code
+            if status_code == 503:
+                # 503: 모델 로딩 중 (Model is loading)
+                try:
+                    eta = r.json().get("estimated_time", 6)
+                except Exception:
+                    eta = 6
+                print(
+                    f"Model is loading (503). Retrying in {min(eta, 10)} seconds."
+                )
+                time.sleep(min(eta, 10))
+                continue
+
+            # For 400 Bad Request and other HTTP errors, we print the error and exit the loop.
+            print(f"HTTP Error {status_code}: {e.response.text}")
+            return None
+
+        except requests.exceptions.RequestException as e:
+            # Handle general connection/timeout errors
+            if i < max_tries - 1:
+                print(
+                    f"Connection error: {e}. Retrying in {backoff_time} seconds."
+                )
+                time.sleep(backoff_time)
+                backoff_time *= 1.5
+            else:
                 print(
                     f"Failed to connect to HF API after {max_tries} tries: {e}"
                 )
-                raise
-            print(f"Connection error: {e}. Retrying in {backoff} seconds.")
-            time.sleep(backoff)
-            backoff *= 1.5
-            continue
+                return None
 
-        # 503: 모델 로딩 중
-        if r.status_code == 503:
-            try:
-                eta = r.json().get("estimated_time", 6)
-            except Exception:
-                eta = 6
-            print(
-                f"Model is loading (503). Retrying in {min(eta, 10)} seconds.")
-            time.sleep(min(eta, 10))
-            continue
-
-        # 200: 응답 성공
-        if r.status_code == 200:
-            try:
-                data = r.json()
-                print("HF API call successful.")
-            except Exception:
-                print("HF API returned non-JSON response. Returning raw text.")
-                return r.text.strip()
-
-            if isinstance(data, list) and data:
-                gt = data[0].get("generated_text") or data[0].get(
-                    "summary_text")
-                if gt: return gt.strip()
-
-            if isinstance(data, dict):
-                gt = data.get("generated_text") or data.get("text")
-                if gt: return gt.strip()
-
-            print(
-                f"HF API returned valid JSON but no text content: {json.dumps(data)}"
-            )
+        except (KeyError, IndexError, json.JSONDecodeError) as e:
+            # Handle parsing errors if the response format is unexpected
+            print(f"Error parsing HF response: {e}. Returning None.")
+            print(f"Response text: {r.text}")
             return None
 
-        # 404 / 429 / 기타: 나중에 다시 시도
-        if r.status_code in (404, 429, 500):
-            if i == max_tries - 1:
-                print(f"HF error {r.status_code}: {r.text[:200]}")
-                return None
-            print(
-                f"HF API returned {r.status_code}. Retrying in {backoff} seconds."
-            )
-            time.sleep(backoff)
-            backoff *= 1.5
-            continue
-
-        # 기타 예상치 못한 상태
-        print(
-            f"HF API returned unexpected status code {r.status_code}: {r.text[:200]}"
-        )
-        return None
-
-    print("HF: Model not available, please try again later.")
+    print("HF: Model not available or failed to respond after all retries.")
     return None
 
 
@@ -127,8 +127,10 @@ def generate_tarot_reading(question, selected_cards, reading_type):
             f"Question: {question}\n\nCards:\n{cards_text}\n\n{context}\n\n"
             "Return only the reading text (no JSON, no explanations).")
 
+        messages = [{"role": "user", "content": prompt}]
+
         # API를 호출하고 응답을 받습니다.
-        text = hf_generate(prompt)
+        text = hf_generate(messages)
 
         # API 호출이 성공하고 응답 길이가 충분하면 반환합니다.
         if text and len(text) > 50:
